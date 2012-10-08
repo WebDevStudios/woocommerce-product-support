@@ -228,7 +228,7 @@ Thank you!
 				}
 			} elseif ( $this->use_bbpress ) {
 
-				// // Grab our current post object and store it for safe-keeping (necessary because wp_reset_postdata() doesn't work in this case)
+				// Grab our current post object and store it for safe-keeping (necessary because wp_reset_postdata() doesn't work in this case)
 				global $post;
 				$temp_post = $post;
 
@@ -237,7 +237,7 @@ Thank you!
 					$output .= '<option' . selected( $current_selection, bbp_get_forum_id(), false ) . ' value="' . bbp_get_forum_id() . '">' . bbp_get_forum_title() . '</option>';
 				endwhile; endif;
 
-				// // Restore our original post object
+				// Restore our original post object
 				$post = $temp_post;
 
 			}
