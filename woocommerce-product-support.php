@@ -20,10 +20,10 @@ function wds_wcps_init() {
 	/**
 	 * Integrate our plugin with the WooCommerce Settings API
 	 *
-	 * @class 		WC_BuddyPress
+	 * @class 		WC_Product_Support
 	 * @extends		WC_Settings_API
 	 */
-	class WC_BuddyPress extends WC_Settings_API {
+	class WC_Product_Support extends WC_Settings_API {
 
 		/**
 		 * Initialize all our checks and integration points
@@ -57,7 +57,7 @@ function wds_wcps_init() {
 				add_action( 'woocommerce_update_options_integration_buddypress', array( &$this, 'process_admin_options' ) );
 				add_action( 'admin_init', array( &$this, 'register_metaboxes' ) );
 				add_action( 'publish_product', array( &$this, 'publish_product' ) );
-				add_action( 'woocommerce_order_status_completed', array( &$this, 'add_user_to_group' ) );
+				add_action( 'woocommerce_order_status_completed', array( &$this, 'bp_add_user_to_group' ) );
 			} else {
 				// Otherwise, display an admin error message
 				add_action( 'admin_notices', array( &$this, 'woocommerce_error' ) );
@@ -222,15 +222,24 @@ Thank you!
 
 			if ( $this->use_buddypress ) {
 				// Loop through all existing BP groups and include them here
-				$groups = groups_get_groups( array( 'show_hidden' => true ) );
-				foreach ( $groups['groups'] as $group ) {
+				$bp_groups = groups_get_groups( array( 'show_hidden' => true ) );
+				foreach ( $bp_groups['groups'] as $group ) {
 					$output .= '<option' . selected( $current_selection, $group->id, false ) . ' value="' . $group->id . '">' . $group->name . '</option>';
 				}
 			} elseif ( $this->use_bbpress ) {
+
+				// // Grab our current post object and store it for safe-keeping (necessary because wp_reset_postdata() doesn't work in this case)
+				global $post;
+				$temp_post = $post;
+
 				// Loop through all existing bbPress forums and include theme here
-				if ( bbp_has_forums() ) { while ( bbp_forums() ) { bbp_the_forum();
+				if ( bbp_has_forums() ) : while ( bbp_forums() ) : bbp_the_forum();
 					$output .= '<option' . selected( $current_selection, bbp_get_forum_id(), false ) . ' value="' . bbp_get_forum_id() . '">' . bbp_get_forum_title() . '</option>';
-				} }
+				endwhile; endif;
+
+				// // Restore our original post object
+				$post = $temp_post;
+
 			}
 
 			$output .= '</select></p>';
@@ -414,7 +423,7 @@ Thank you!
 		 * @access public
 		 * @return void
 		 */
-		public function add_user_to_group( $order_id ) {
+		public function bp_add_user_to_group( $order_id ) {
 
 			// If we're not using BuddyPress, we can skip the rest
 			if ( ! $this->use_buddypress )
@@ -452,7 +461,7 @@ add_filter( 'woocommerce_integrations', 'wds_wcps_integration' );
 
 function wds_wcps_integration( $integrations ) {
 
-	$integrations[] = 'WC_BuddyPress';
+	$integrations[] = 'WC_Product_Support';
 
 	return $integrations;
 
