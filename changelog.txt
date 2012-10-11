@@ -1,0 +1,4 @@
+*** Stamps.com Change Log ***
+
+2012.10.01 - version 1.0
+ * First Release
