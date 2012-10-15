@@ -323,18 +323,19 @@ Thank you!
 			// If a group doesn't already exist
 			if ( ! $group_id ) {
 
-				// Create our group
-				$group_id = groups_create_group(
-					array(
-						'creator_id'	=> bp_loggedin_user_id(),
-						'name'			=> $product_title,
-						'slug'			=> $product_slug,
-						'description'	=> sprintf( __( 'This is the support group for %s', 'wcps' ), $product_title ),
-						'status'		=> 'hidden',
-						'date_created'	=> bp_core_current_time(),
-						'enable_forum'	=> true
-					)
+				// Setup our new group args
+				$group_args = array(
+					'creator_id'	=> bp_loggedin_user_id(),
+					'name'			=> $product_title,
+					'slug'			=> $product_slug,
+					'description'	=> sprintf( __( 'This is the support group for %s', 'eddps' ), $product_title ),
+					'status'		=> 'hidden',
+					'date_created'	=> bp_core_current_time(),
+					'enable_forum'	=> true
 				);
+
+				// Create our group
+				$group_id = groups_create_group( $group_args );
 
 				// Update the member count and last activity
 				groups_update_groupmeta( absint( $group_id ), 'total_member_count', 1 );
@@ -342,7 +343,7 @@ Thank you!
 				groups_update_groupmeta( absint( $group_id ), 'invite_status', 'admins' );
 
 				// Create group forum
-				groups_new_group_forum( absint( $group_id ), $product_title, $group_description );
+				groups_new_group_forum( absint( $group_id ), $product_title, $group_args['description'] );
 
 				// Get all our current admins
 				$wp_user_search = new WP_User_Query( array( 'role' => 'administrator' ) );
