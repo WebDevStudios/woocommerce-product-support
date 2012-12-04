@@ -1,4 +1,7 @@
 *** Product Support Change Log ***
 
+2012.12.04 - version 1.0.1
+ * New updater
+
 2012.10.01 - version 1.0
  * First Release
