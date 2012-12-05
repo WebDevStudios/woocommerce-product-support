@@ -17,7 +17,7 @@ if ( ! function_exists( 'woothemes_queue_update' ) )
 /**
  * Plugin updates
  */
-woothemes_queue_update( plugin_basename( __FILE__ ), 'XXX', 'XXX' );
+woothemes_queue_update( plugin_basename( __FILE__ ), 'f131808376e0d50a3cdbd2229735b898', '122141' );
 
 // We need to wait until all plugins are loaded before we can continue so everything works right
 add_action( 'plugins_loaded', 'wds_wcps_init', 0 );
