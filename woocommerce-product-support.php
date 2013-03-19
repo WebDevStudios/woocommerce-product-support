@@ -4,7 +4,7 @@ Plugin Name: WooCommerce Product Support
 Plugin URI: http://webdevstudios.com
 Description: This extension adds BuddyPress Groups or bbPress integration to WooCommerce. This plugin allows you to associate a product with a group/forum (or create a new one), and automatically add a user to that group when they purchase the product. Visit WooCommerce > Settings > Integration to configure the default first support topic.
 Author: WebDevStudios
-Version: 1.1
+Version: 1.0.1
 Author URI: http://webdevstudios.com
 */
 
@@ -52,7 +52,6 @@ function wds_wcps_init() {
 			$this->method_title     	= __( 'Product Support', 'wcps' );
 			$this->method_description	= __( 'This extension allows you to associate Products with either BuddyPress or bbPress forums.<br/>Below you can specify the default title and content for an optional first topic.', 'wcps' );
 			$this->method_description	.= $this->requirement_notice();
-			$this->plugin               = plugin_basename(__FILE__);
 
 			// Load the form fields.
 			$this->init_form_fields();
@@ -66,7 +65,6 @@ function wds_wcps_init() {
 
 			// Only run our actions if we pass requiremets
 			if ( $this->check_requirements() ) {
-				add_action( 'plugin_action_links', array( &$this, 'add_settings_link' ), 10, 2 );
 				add_action( 'woocommerce_update_options_integration_buddypress', array( &$this, 'process_admin_options' ) );
 				add_action( 'admin_init', array( &$this, 'register_metaboxes' ) );
 				add_action( 'publish_product', array( &$this, 'publish_product' ) );
@@ -146,19 +144,6 @@ function wds_wcps_init() {
 			$output .= sprintf( __( '<p>WooCommerce Product Support requires either <a href="%s" target="_blank" class="thickbox onclick">BuddyPress</a> with <a href="%s">User Groups and Discussion Forums enabled</a> <em>-OR-</em> <a href="%s" target="_blank" class="thickbox onclick">bbPress</a>. Please install and activate <em>one</em> of these plugins.</p>', 'wcps' ), admin_url( '/plugin-install.php?tab=plugin-information&plugin=BuddyPress&TB_iframe=true&width=600&height=550' ), admin_url( '/admin.php?page=bp-components' ), admin_url( '/plugin-install.php?tab=plugin-information&plugin=bbpress&TB_iframe=true&width=600&height=550' ) );
 			$output .= '</div>';
 			echo $output;
-		}
-
-		/**
-		 * Add Settings link to plugins output
-		 */
-		function add_settings_link( $links, $file ) {
-
-			if ($file == $this->plugin) {
-				$settings_link = '<a href="' . admin_url( 'admin.php?page=woocommerce_settings&tab=integration&section=buddypress' ) . '">' . __( 'Settings', 'wcps' ) . '</a>';
-				array_unshift($links, $settings_link);
-			}
-
-			return $links;
 		}
 
 		/**
@@ -243,54 +228,37 @@ Thank you!
 			$output = '';
 			$output .= '<p><label for="enable_support"><input type="checkbox" id="enable_support" name="enable_support" value="true" ' . checked( $enable_support, 'true', false ) . '> '. __( 'Enable support for this product', 'wcps' ) . '</label></p>';
 			$output .= '<p><label for="support_group">' . sprintf( __( 'Use this %s:', 'wcps' ), $this->group_or_forum ) . '</label> ';
+			$output .= '<select name="support_group" id="support_group">';
+			$output .= '<option value="">' . sprintf( __( 'Create new %s', 'wcps' ), $this->group_or_forum ) . '</option>';
 
 			if ( $this->use_buddypress ) {
-
-				// Setup our select input
-				$output .= '<select name="support_group" id="support_group">';
-				$output .= '<option value="">' . __( 'Create new group', 'wcps' ) . '</option>';
-
 				// Loop through all existing BP groups and include them here
 				$bp_groups = groups_get_groups( array( 'show_hidden' => true ) );
-				if ( $bp_groups ) {
-					foreach ( $bp_groups['groups'] as $group ) {
-						$output .= '<option' . selected( $current_selection, $group->id, false ) . ' value="' . $group->id . '">' . $group->name . '</option>';
-					}
+				foreach ( $bp_groups['groups'] as $group ) {
+					$output .= '<option' . selected( $current_selection, $group->id, false ) . ' value="' . $group->id . '">' . $group->name . '</option>';
 				}
-
-				$output .= '</select></p>';
-
 			} elseif ( $this->use_bbpress ) {
 
-				// Build an entire select input for our forums
-				$output .= bbp_get_dropdown( array(
-					'selected'           => $current_selection,
-					'show_none'          => __( 'Create new forum', 'wcps' ),
-					'select_id'          => 'support_group',
-					'disable_categories' => false
-				) );
+				// Grab our current post object and store it for safe-keeping (necessary because wp_reset_postdata() doesn't work in this case)
+				global $post;
+				$temp_post = $post;
+
+				// Loop through all existing bbPress forums and include theme here
+				if ( bbp_has_forums() ) : while ( bbp_forums() ) : bbp_the_forum();
+					$output .= '<option' . selected( $current_selection, bbp_get_forum_id(), false ) . ' value="' . bbp_get_forum_id() . '">' . bbp_get_forum_title() . '</option>';
+				endwhile; endif;
+
+				// Restore our original post object
+				$post = $temp_post;
 
 			}
 
-			// Include an option for creating the first post
-			$output .= '<p class="enable-first-post"><label for="create_first_post"><input type="checkbox" id="create_first_post" name="create_first_post" value="true"> '. sprintf( __( 'Create first topic using <a href="%s" target="_blank">default setings</a>.', 'wcps' ), admin_url('admin.php?page=woocommerce_settings&tab=integration&section=buddypress') ) . '</label></p>';
+			$output .= '</select></p>';
 
-			// Include a bit of javascript to auto-hide the "first post" checkbox based on the support group setting
-			$output .= '
-				<script type="text/javascript">
-					jQuery("#support_group").change( function() {
-						console.log( jQuery(this).val() );
-						if ( "" === jQuery(this).val() )
-							jQuery(".enable-first-post").show();
-						else {
-							jQuery(".enable-first-post").hide(); // Hide the checkbox
-							jQuery("#create_first_post").attr("checked", false); // Uncheck the checkbox (for good measure)
-
-						}
-					});
-					jQuery("#support_group").change();
-				</script>
-			';
+			// If we're on the new post screen, or the enable support has never been set, include an option for creating the first post
+			// global $pagenow;
+			if ( !isset( $enable_support ) || false == $enable_support )
+				$output .= '<p><label for="create_first_post"><input type="checkbox" id="create_first_post" name="create_first_post" value="true"> '. sprintf( __( 'Create first topic using <a href="%s" target="_blank">default setings</a>.', 'wcps' ), admin_url('admin.php?page=woocommerce_settings&tab=integration&section=buddypress') ) . '</label></p>';
 
 			// Echo our output
 			echo $output;
@@ -354,7 +322,7 @@ Thank you!
 					'creator_id'	=> bp_loggedin_user_id(),
 					'name'			=> $product_title,
 					'slug'			=> $product_slug,
-					'description'	=> sprintf( __( 'This is the support group for %s', 'wcps' ), $product_title ),
+					'description'	=> sprintf( __( 'This is the support group for %s', 'eddps' ), $product_title ),
 					'status'		=> 'hidden',
 					'date_created'	=> bp_core_current_time(),
 					'enable_forum'	=> true
@@ -473,19 +441,17 @@ Thank you!
 			if ( ! $this->use_buddypress )
 				return;
 
-			$order = new WC_Order( $order_id );
-
 			// Get the user's ID
-			$user_id = $order->user_id;
+			$user_id = get_post_meta( absint( $order_id ), '_customer_user', true );
 
 			// Get the purchased product ID(s)
-			$products = $order->get_items();
+			$products = get_post_meta( absint( $order_id ), '_order_items', true );
 
 			// Loop through each product and add user to corresponding BP group
 			foreach ( $products as $product ) {
 
 				// Get the ID of the support forum associated with the product
-				$product_support = get_post_meta( $product['product_id'], '_support_group', true ) ? get_post_meta( $product['product_id'], '_support_group', true ) : false;
+				$product_support = get_post_meta( $product['id'], '_support_group', true ) ? get_post_meta( $product['id'], '_support_group', true ) : false;
 
 				// If the product has enabled support, add the user to it's group
 				if ( $product_support )
