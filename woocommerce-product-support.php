@@ -4,7 +4,7 @@ Plugin Name: WooCommerce Product Support
 Plugin URI: http://webdevstudios.com
 Description: This extension adds BuddyPress Groups or bbPress integration to WooCommerce. This plugin allows you to associate a product with a group/forum (or create a new one), and automatically add a user to that group when they purchase the product. Visit WooCommerce > Settings > Integration to configure the default first support topic.
 Author: WebDevStudios
-Version: 1.1
+Version: 1.1.0
 Author URI: http://webdevstudios.com
 */
 
