@@ -1,4 +1,8 @@
-*** Product Support Change Log ***
+*** Product Support Changelog ***
+
+2013.09.27 - version 2.0
+ * Rewrote to simultaneously support BuddyPress and bbPress
+ * Added privacy controls for bbPress forums
 
 2013.02.08 - version 1.1.0
  * Updated hooks to support WC 2.0
