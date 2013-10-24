@@ -37,12 +37,39 @@ function wds_wcps_user_has_product( $user_id = 0, $product_id = 0 ) {
 		return edd_has_user_purchased( $user_id, $product_id );
 
 	// Or if we're using WooCommerce
-	elseif ( class_exists( 'WooCommerce' ) )
-		return woocommerce_customer_bought_product( null, $user_id, $product_id );
+	elseif ( class_exists( 'WooCommerce' ) ) {
+		add_filter( 'woocommerce_reports_order_statuses', 'wds_wcps_user_has_product_status_filter', 20, 1 );
+
+		$has_product = woocommerce_customer_bought_product( null, $user_id, $product_id );
+
+		remove_filter( 'woocommerce_reports_order_statuses', 'wds_wcps_user_has_product_status_filter' );
+
+		return $has_product;
+	}
 
 	// Otherwise, we don't care
 	else
 		return false;
+
+}
+
+/**
+ * Filter which statuses are allowed to determine if the current customer has valid products (order=completed)
+ *
+ * @param $status_list
+ *
+ * @return array
+ */
+function wds_wcps_user_has_product_status_filter( $status_list ) {
+
+	// Force 'completed' status, don't allow others
+	$status_list = array(
+		//'processing',
+		//'on-hold',
+		'completed'
+	);
+
+	return $status_list;
 
 }
 
