@@ -296,7 +296,7 @@ function wds_wcps_init() {
 			$output .= '</select>';
 
 			// Create first topic
-			$output .= '<p class="enable-first-post"><label for="create_first_post"><input type="checkbox" id="create_first_post" name="create_first_post" value="true"> '. sprintf( __( 'Create first topic using <a href="%s" target="_blank">default setings</a>.', 'wcps' ), admin_url('admin.php?page=woocommerce_settings&tab=integration&section=buddypress') ) . '</label></p>';
+			$output .= '<p class="enable-first-post"><label for="create_first_post"><input type="checkbox" id="create_first_post" name="create_first_post" value="true"> '. sprintf( __( 'Create first topic using <a href="%s" target="_blank">default settings</a>.', 'wcps' ), admin_url('admin.php?page=woocommerce_settings&tab=integration&section=buddypress') ) . '</label></p>';
 
 			// Restrict access to product owners
 			if ( ! defined( 'EDD_CR_PLUGIN_DIR' ) )
