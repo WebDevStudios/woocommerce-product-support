@@ -204,11 +204,15 @@ add_filter( 'bbp_current_user_can_access_create_topic_form', 'wds_wcps_hide_new_
 function wds_wcps_apply_feedback_messages() {
 	global $user_ID;
 
+	if ( ! function_exists( 'bbpress' ) ) {
+		return;
+	}
+
 	if ( bbp_is_single_topic() ) {
 		add_filter( 'gettext', 'wds_wcps_topic_feedback_messages', 20, 3 );
 	} else if ( bbp_is_single_forum() && wds_wcps_is_forum_restricted( bbp_get_forum_id() ) ) {
-			add_filter( 'gettext', 'wds_wcps_forum_feedback_messages', 20, 3 );
-		}
+		add_filter( 'gettext', 'wds_wcps_forum_feedback_messages', 20, 3 );
+	}
 }
 add_action( 'template_redirect', 'wds_wcps_apply_feedback_messages' );
 
