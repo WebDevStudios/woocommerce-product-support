@@ -1,5 +1,8 @@
 *** Product Support Changelog ***
 
+2015.04.03 - version 2.0.1
+ * Fix logic error that prevented default topics from being sticky posts.
+
 2013.09.27 - version 2.0
  * Rewrote to simultaneously support BuddyPress and bbPress
  * Added privacy controls for bbPress forums
