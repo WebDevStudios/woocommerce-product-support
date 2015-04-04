@@ -4,7 +4,7 @@ Plugin Name: WooCommerce Product Support
 Plugin URI: http://webdevstudios.com
 Description: Connect your products to BuddyPress Groups and bbPress Forums. Easily manage product support or build paid communities.
 Author: WebDevStudios
-Version: 2.0.0
+Version: 2.0.1
 Author URI: http://webdevstudios.com
 */
 
