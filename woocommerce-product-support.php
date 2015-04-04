@@ -516,8 +516,9 @@ function wds_wcps_init() {
 			);
 
 			// Make our new topic sticky
-			if ( is_wp_error( $topic_id ) )
+			if ( ! is_wp_error( $topic_id ) ) {
 				bbp_stick_topic( $topic_id );
+			}
 
 			return $topic_id;
 
