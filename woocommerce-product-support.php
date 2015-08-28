@@ -241,7 +241,7 @@ function wds_wcps_init() {
 			$output = '';
 
 			// Render our label
-			$output .= '<p><label for="product_group">' . __( 'Conected BuddyPress Group:', 'wcps' ) . '</label> ';
+			$output .= '<p><label for="product_group">' . __( 'Connected BuddyPress Group:', 'wcps' ) . '</label> ';
 
 			// Setup our select input
 			$output .= '<select name="product_group" id="support_group">';
@@ -280,7 +280,7 @@ function wds_wcps_init() {
 			$output = '';
 
 			// Render our label
-			$output .= '<p><label for="product_forum">' . __( 'Conected bbPress Forum:', 'wcps' ) . '</label> ';
+			$output .= '<p><label for="product_forum">' . __( 'Connected bbPress Forum:', 'wcps' ) . '</label> ';
 
 			// Build an entire select input for our forums
 			$output .= '<select name="product_forum" id="product_forum">' . "\n";
