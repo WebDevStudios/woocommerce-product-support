@@ -58,7 +58,7 @@ function wds_wcps_init() {
 			$this->id                 = 'product_support';
 			$this->method_title       = __( 'WooCommerce Product Support', 'wcps' );
 			$this->method_description = __( 'This extension allows you to associate Products with either BuddyPress or bbPress forums.<br/>Below you can specify the default title and content for an optional first topic.', 'wcps' );
-			$this->settings_link      = admin_url( 'admin.php?page=woocommerce_settings&tab=integration&section=' . $this->id );
+			$this->settings_link      = admin_url( 'admin.php?page=wc-settings&tab=integration&section=' . $this->id );
 			$this->plugin             = plugin_basename( __FILE__ );
 
 			// Load the form fields.
