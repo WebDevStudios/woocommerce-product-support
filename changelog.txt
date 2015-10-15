@@ -2,6 +2,7 @@
 
 2015.10.14 - version 2.0.2
  * Fix settings link listed under plugin in Plugins list.
+ * Added .pot file for internationalization.
 
 2015.04.03 - version 2.0.1
  * Fix logic error that prevented default topics from being sticky posts.
