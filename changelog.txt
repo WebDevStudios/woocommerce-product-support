@@ -2,6 +2,8 @@
 
 2015.10.14 - version 2.0.2
  * Fix settings link listed under plugin in Plugins list.
+ * Fix typo in group/forum assignment area.
+ * Fix hook that admin options are run on.
  * Added .pot file for internationalization.
 
 2015.04.03 - version 2.0.1
