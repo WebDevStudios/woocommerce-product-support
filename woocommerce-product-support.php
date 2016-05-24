@@ -1,4 +1,11 @@
 <?php
+/**
+ * WooCommerce Product Support.
+ * @package Woocommerce Product Support
+ * @author  WebDevStudios.
+ * @since   1.0.0
+ */
+
 /*
 Plugin Name: WooCommerce Product Support
 Plugin URI: http://webdevstudios.com
