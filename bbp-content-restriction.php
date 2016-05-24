@@ -129,7 +129,7 @@ function wds_wcps_filter_replies( $content, $reply_id ) {
 	if ( $restricted_to && ! wds_wcps_user_has_product( $user_ID, $restricted_to ) ) {
 
 		$return = '<div class="wds_wcps_message">' . sprintf(
-			__( 'This content is restricted to owners of %s.', 'wcps' ),
+			esc_html__( 'This content is restricted to owners of %s.', 'wcps' ),
 			'<a href="' . get_permalink( $restricted_to ) . '">' . get_the_title( $restricted_to ) . '</a>'
 		) . '</div>';
 
