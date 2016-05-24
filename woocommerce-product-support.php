@@ -351,9 +351,9 @@ function wds_wcps_init() {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param int $post_id Product post ID
+		 * @param int $product_id Product post ID.
 		 */
-		public function publish_product( $product_id ) {
+		public function publish_product( $product_id = 0 ) {
 
 			// If this is just an autosave, bail here.
 			if ( wp_is_post_autosave( $product_id ) )
