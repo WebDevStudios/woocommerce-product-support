@@ -46,6 +46,8 @@ function wds_wcps_init() {
 	/**
 	 * Integrate our plugin with the WooCommerce Settings API.
 	 *
+	 * @since 1.0.1
+	 *
 	 * @class WC_Product_Support
 	 * @extends WC_Settings_API
 	 */
@@ -481,6 +483,8 @@ function wds_wcps_init() {
 		 *
 		 * @since 1.0.0
 		 *
+		 * @param int  $product_id        ID of the product to create forum for.
+		 * @param bool $create_first_post Whether or not to create first post.
 		 * @return int The created forum ID.
 		 */
 		private function bbp_create_forum( $product_id = 0, $create_first_post = false ) {
@@ -648,6 +652,8 @@ function wds_wcps_init() {
 		 * Add user to BP group when order is completed.
 		 *
 		 * @since 2.0.0
+		 *
+		 * @param int $order_id ID for the current order completed.
 		 */
 		public function wc_process_order( $order_id ) {
 
