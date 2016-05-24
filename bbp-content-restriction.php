@@ -206,9 +206,9 @@ function wds_wcps_apply_feedback_messages() {
 	}
 
 	if ( bbp_is_single_topic() ) {
-		add_filter( 'gettext', 'wds_wcps_topic_feedback_messages', 20, 3 );
+		add_filter( 'gettext', 'wds_wcps_topic_feedback_messages', 20, 2 );
 	} else if ( bbp_is_single_forum() && wds_wcps_is_forum_restricted( bbp_get_forum_id() ) ) {
-		add_filter( 'gettext', 'wds_wcps_forum_feedback_messages', 20, 3 );
+		add_filter( 'gettext', 'wds_wcps_forum_feedback_messages', 20, 2 );
 	}
 }
 add_action( 'template_redirect', 'wds_wcps_apply_feedback_messages' );
@@ -220,10 +220,9 @@ add_action( 'template_redirect', 'wds_wcps_apply_feedback_messages' );
  *
  * @param string $translated_text Translated content.
  * @param string $text            Original content.
- * @param string $domain          Textdomain.
  * @return string Updated content.
  */
-function wds_wcps_topic_feedback_messages( $translated_text, $text, $domain ) {
+function wds_wcps_topic_feedback_messages( $translated_text, $text ) {
 
 	switch ( $text ) {
 		case 'You cannot reply to this topic.':
@@ -240,10 +239,9 @@ function wds_wcps_topic_feedback_messages( $translated_text, $text, $domain ) {
  *
  * @param string $translated_text Translated content.
  * @param string $text            Original content.
- * @param string $domain          Textdomain.
  * @return string Updated content.
  */
-function wds_wcps_forum_feedback_messages( $translated_text, $text, $domain ) {
+function wds_wcps_forum_feedback_messages( $translated_text, $text ) {
 
 	switch ( $text ) {
 		case 'Oh bother! No topics were found here!':
