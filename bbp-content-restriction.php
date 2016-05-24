@@ -50,10 +50,7 @@ function wds_wcps_user_has_product( $user_id = 0, $product_id = 0 ) {
 		return $has_product;
 	}
 
-	// Otherwise, we don't care.
-	else
-		return false;
-
+	return false;
 }
 
 /**
