@@ -329,11 +329,11 @@ function wds_wcps_init() {
 					jQuery("#product_forum").change( function() {
 
 						// Setup our variables.
-						$this               = jQuery(this);
-						$create_topic_wrap  = jQuery(".enable-first-post");
-						$create_topic_input = jQuery("#create_first_post");
-						$limit_access_wrap  = jQuery(".limit-access").show();
-						$limit_access_input = jQuery("#limit_access");
+						var $this               = jQuery(this);
+						var $create_topic_wrap  = jQuery(".enable-first-post");
+						var $create_topic_input = jQuery("#create_first_post");
+						var $limit_access_wrap  = jQuery(".limit-access").show();
+						var $limit_access_input = jQuery("#limit_access");
 
 						// If no forum is selected.
 						if ( "" === $this.val() ) {
