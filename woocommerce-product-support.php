@@ -18,8 +18,9 @@ Author URI: http://webdevstudios.com
 /**
  * Required functions.
  */
-if ( ! function_exists( 'woothemes_queue_update' ) )
+if ( ! function_exists( 'woothemes_queue_update' ) ) {
 	require_once( 'woo-includes/woo-functions.php' );
+}
 
 /**
  * Plugin updates.
@@ -32,8 +33,9 @@ add_action( 'plugins_loaded', 'wds_wcps_init' );
 function wds_wcps_init() {
 
 	// Stop here if WooCommerce isn't present.
-	if ( ! class_exists( 'WC_Settings_API' ) )
+	if ( ! class_exists( 'WC_Settings_API' ) ) {
 		return false;
+	}
 
 	/**
 	 * Integrate our plugin with the WooCommerce Settings API.
@@ -96,8 +98,9 @@ function wds_wcps_init() {
 			if ( $this->meets_requirements() ) {
 
 				// Include our bbPress content restriction.
-				if ( ! defined( 'EDD_CR_PLUGIN_DIR' ) )
+				if ( ! defined( 'EDD_CR_PLUGIN_DIR' ) ) {
 					include_once( trailingslashit( $this->directory_path ) . 'bbp-content-restriction.php' );
+				}
 
 				// Hook everything where it belongs.
 				add_action( 'admin_init', array( $this, 'register_metabox' ) );
@@ -123,10 +126,11 @@ function wds_wcps_init() {
 			$this->use_bbpress = class_exists( 'BBP_Component' ) ? true : false;
 
 			// If neither BuddyPress nor bbPress are available, return false.
-			if ( ! $this->use_buddypress && ! $this->use_bbpress )
+			if ( ! $this->use_buddypress && ! $this->use_bbpress ) {
 				return false;
-			else
-				return true;
+			}
+
+			return true;
 
 		} /* meets_requirements() */
 
@@ -219,11 +223,13 @@ function wds_wcps_init() {
 			// Concatenate our output.
 			$output = '';
 
-			if ( $this->use_buddypress )
+			if ( $this->use_buddypress ) {
 				$output .= $this->render_metabox_buddypress_settings( $post );
+			}
 
-			if ( $this->use_bbpress )
+			if ( $this->use_bbpress ) {
 				$output .= $this->render_metabox_bbpress_settings( $post );
+			}
 
 			// Echo our output.
 			echo $output;
@@ -305,8 +311,9 @@ function wds_wcps_init() {
 			$output .= '<p class="enable-first-post"><label for="create_first_post"><input type="checkbox" id="create_first_post" name="create_first_post" value="true"> '. sprintf( __( 'Create first topic using <a href="%s" target="_blank">default settings</a>.', 'wcps' ), admin_url('admin.php?page=woocommerce_settings&tab=integration&section=buddypress') ) . '</label></p>';
 
 			// Restrict access to product owners.
-			if ( ! defined( 'EDD_CR_PLUGIN_DIR' ) )
-				$output .= '<p class="limit-access"><label for="limit_access"><input type="checkbox" id="limit_access" name="limit_access" value="true" ' . checked( $limit_access, true, false ) . '> '. __( 'Limit forum access to product owners.', 'wcps' ) . '</label></p>';
+			if ( ! defined( 'EDD_CR_PLUGIN_DIR' ) ) {
+				$output .= '<p class="limit-access"><label for="limit_access"><input type="checkbox" id="limit_access" name="limit_access" value="true" ' . checked( $limit_access, true, false ) . '> ' . __( 'Limit forum access to product owners.', 'wcps' ) . '</label></p>';
+			}
 
 			// JS to conditionally show checkbox for "insert first post".
 			$output .= '
@@ -363,8 +370,9 @@ function wds_wcps_init() {
 		public function publish_product( $product_id = 0 ) {
 
 			// If this is just an autosave, bail here.
-			if ( wp_is_post_autosave( $product_id ) )
+			if ( wp_is_post_autosave( $product_id ) ) {
 				return;
+			}
 
 			// Grab our support variables.
 			$product_group     = ! empty( $_POST['product_group'] ) ? $_POST['product_group'] : false;
@@ -373,12 +381,14 @@ function wds_wcps_init() {
 			$limit_access      = isset( $_POST['limit_access'] ) ? true : false;
 
 			// If BP is enabled, and we have a group, create the group.
-			if ( $this->use_buddypress && 'new' == $product_group )
+			if ( $this->use_buddypress && 'new' == $product_group ) {
 				$product_group = $this->bp_create_group( $product_id );
+			}
 
 			// If bbP is enabled, and we have a forum, create the forum.
-			if ( $this->use_bbpress && 'new' == $product_forum )
+			if ( $this->use_bbpress && 'new' == $product_forum ) {
 				$product_forum = $this->bbp_create_forum( $product_id, $create_first_post );
+			}
 
 			// Update product meta.
 			update_post_meta( $product_id, '_product_group', absint( $product_group ) );
@@ -386,8 +396,9 @@ function wds_wcps_init() {
 			update_post_meta( $product_id, '_product_limit_access', $limit_access );
 
 			// Update forum meta.
-			if ( absint( $product_forum ) )
+			if ( absint( $product_forum ) ) {
 				update_post_meta( $product_forum, '_wds_wcps_connected_product', $product_id );
+			}
 
 		} /* publish_product() */
 
@@ -482,8 +493,9 @@ function wds_wcps_init() {
 			) );
 
 			// If the option is set to auto-create the first topic, let's create it.
-			if ( $forum_id && $create_first_post )
+			if ( $forum_id && $create_first_post ) {
 				$this->bbp_create_first_topic( $product_id, $forum_id );
+			}
 
 			// Return our new forum ID.
 			return $forum_id;
@@ -634,8 +646,9 @@ function wds_wcps_init() {
 		public function wc_process_order( $order_id ) {
 
 			// If we're not using BuddyPress, we can skip the rest.
-			if ( ! $this->use_buddypress )
+			if ( ! $this->use_buddypress ) {
 				return;
+			}
 
 			// Build the order object.
 			$order = new WC_Order( $order_id );
@@ -654,8 +667,9 @@ function wds_wcps_init() {
 					$group_id = ( $group = get_post_meta( $product['product_id'], '_product_group', true ) ) ? $group : false;
 
 					// If the product has enabled support, add the user to it's group.
-					if ( $group_id )
+					if ( $group_id ) {
 						groups_join_group( $group_id, $user_id );
+					}
 
 				}
 			}
