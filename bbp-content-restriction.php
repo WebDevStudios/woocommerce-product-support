@@ -1,11 +1,18 @@
 <?php
+/**
+ * WooCommerce Product Support.
+ * @package    Woocommerce Product Support
+ * @subpackage bbPress Content Restriction
+ * @author     WebDevStudios.
+ * @since      1.0.0
+ */
 
 /**
  * Check if forum is marked "restricted".
  *
  * @since 2.0.0
  *
- * @param  nteger $forum_id Forum post ID.
+ * @param integer $forum_id Forum post ID.
  * @return integer|bool Product ID if access is restricted, otherwise false.
  */
 function wds_wcps_is_forum_restricted( $forum_id = 0 ) {
