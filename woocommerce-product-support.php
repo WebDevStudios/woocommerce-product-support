@@ -54,6 +54,102 @@ function wds_wcps_init() {
 	class WC_Product_Support extends WC_Settings_API {
 
 		/**
+		 * Plugin basename.
+		 *
+		 * @since 2.0.0
+		 * @var string
+		 */
+		public $basename = '';
+
+		/**
+		 * Plugin directory path.
+		 *
+		 * @since 2.0.0
+		 * @var string
+		 */
+		public $directory_path = '';
+
+		/**
+		 * Plugin directory URL.
+		 *
+		 * @since 2.0.0
+		 * @var string
+		 */
+		public $directory_url = '';
+
+		/**
+		 * Plugin ID.
+		 *
+		 * @since 1.0.0
+		 * @var string
+		 */
+		public $id = '';
+
+		/**
+		 * Plugin title.
+		 *
+		 * @since 1.0.0
+		 * @var string|void
+		 */
+		public $method_title = '';
+
+		/**
+		 * Plugin description.
+		 *
+		 * @since 1.0.0
+		 * @var string|void
+		 */
+		public $method_description = '';
+
+		/**
+		 * Settings tab link.
+		 *
+		 * @since 2.0.0
+		 * @var string|void
+		 */
+		public $settings_link = '';
+
+		/**
+		 * Plugin basename.
+		 *
+		 * @since 2.0.0
+		 * @var string
+		 */
+		public $plugin = '';
+
+		/**
+		 * BuddyPress default topic title.
+		 *
+		 * @since 1.0.0
+		 * @var string
+		 */
+		public $bp_topic_title = '';
+
+		/**
+		 * BuddyPress default topic text.
+		 *
+		 * @since 1.0.0
+		 * @var string
+		 */
+		public $bp_topic_text = '';
+
+		/**
+		 * Whether or not to use BuddyPress.
+		 *
+		 * @since 1.0.0
+		 * @var bool
+		 */
+		public $use_buddypress = false;
+
+		/**
+		 * Whether or not to use bbPress.
+		 *
+		 * @since 1.0.0
+		 * @var bool
+		 */
+		public $use_bbpress = false;
+
+		/**
 		 * Initialize all our checks and integration points.
 		 *
 		 * @access public
