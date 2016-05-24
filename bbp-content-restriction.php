@@ -56,10 +56,12 @@ function wds_wcps_user_has_product( $user_id = 0, $product_id = 0 ) {
 /**
  * Filter which statuses are allowed to determine if the current customer has valid products (order=processing,completed).
  *
- * @param $status_list
+ * @since 2.0.0
+ *
+ * @param array $status_list Array of statuses.
  * @return array
  */
-function wds_wcps_user_has_product_status_filter( $status_list ) {
+function wds_wcps_user_has_product_status_filter( $status_list = array() ) {
 
 	// Force 'processing', 'completed' status, don't allow others.
 	$status_list = array(
