@@ -21,8 +21,9 @@ function wds_wcps_is_forum_restricted( $forum_id = 0 ) {
 	$product_id = absint( get_post_meta( $forum_id, '_wds_wcps_connected_product', true ) );
 
 	// See if product is set to restrict access.
-	if ( $product_id && $restricted = get_post_meta( $product_id, '_product_limit_access', true ) )
+	if ( $product_id && $restricted = get_post_meta( $product_id, '_product_limit_access', true ) ) {
 		return $product_id;
+	}
 
 	// If not, return false.
 	return false;
@@ -91,8 +92,9 @@ function wds_wcps_filter_bbp_topics_list( $query ) {
 
 	global $user_ID;
 
-	if ( current_user_can( 'manage_options' ) )
+	if ( current_user_can( 'manage_options' ) ) {
 		return $query;
+	}
 
 	if ( bbp_is_single_forum() ) {
 
@@ -120,8 +122,9 @@ add_filter( 'bbp_has_topics_query', 'wds_wcps_filter_bbp_topics_list' );
 function wds_wcps_filter_replies( $content, $reply_id ) {
 	global $user_ID, $post;
 
-	if ( current_user_can( 'manage_options' ) )
+	if ( current_user_can( 'manage_options' ) ) {
 		return $content;
+	}
 
 	$restricted_to = wds_wcps_is_forum_restricted( bbp_get_topic_id() );
 
@@ -158,8 +161,9 @@ add_filter( 'bbp_get_reply_content', 'wds_wcps_filter_replies', 2, 999 );
 function wds_wcps_hide_new_topic_form( $can_access ) {
 	global $user_ID;
 
-	if ( current_user_can( 'manage_options' ) )
+	if ( current_user_can( 'manage_options' ) ) {
 		return $can_access;
+	}
 
 	$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // Check for parent forum restriction.
 	$restricted_id = bbp_get_forum_id();
