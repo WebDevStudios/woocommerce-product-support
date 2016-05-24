@@ -226,7 +226,7 @@ function wds_wcps_topic_feedback_messages( $translated_text, $text ) {
 
 	switch ( $text ) {
 		case 'You cannot reply to this topic.':
-			$translated_text = __( 'Topic creation is restricted to product owners.', 'wcps' );
+			$translated_text = esc_html__( 'Topic creation is restricted to product owners.', 'wcps' );
 			break;
 	}
 	return $translated_text;
@@ -245,10 +245,10 @@ function wds_wcps_forum_feedback_messages( $translated_text, $text ) {
 
 	switch ( $text ) {
 		case 'Oh bother! No topics were found here!':
-			$translated_text = __( 'This forum is restricted to product owners.', 'wcps' );
+			$translated_text = esc_html__( 'This forum is restricted to product owners.', 'wcps' );
 			break;
 		case 'You cannot create new topics at this time.':
-			$translated_text = __( 'Only product owners can create topics.', 'wcps' );
+			$translated_text = esc_html__( 'Only product owners can create topics.', 'wcps' );
 			break;
 	}
 	return $translated_text;
