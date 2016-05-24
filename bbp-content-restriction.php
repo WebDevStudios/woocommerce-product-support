@@ -43,7 +43,7 @@ function wds_wcps_user_has_product( $user_id = 0, $product_id = 0 ) {
 	if ( class_exists( 'WooCommerce' ) ) {
 		add_filter( 'woocommerce_reports_order_statuses', 'wds_wcps_user_has_product_status_filter', 20, 1 );
 
-		$has_product = woocommerce_customer_bought_product( null, $user_id, $product_id );
+		$has_product = wc_customer_bought_product( null, $user_id, $product_id );
 
 		remove_filter( 'woocommerce_reports_order_statuses', 'wds_wcps_user_has_product_status_filter' );
 
