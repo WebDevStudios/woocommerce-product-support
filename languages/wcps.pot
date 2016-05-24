@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WooCommerce Product Support\n"
-"POT-Creation-Date: 2015-10-14 19:55-0500\n"
+"POT-Creation-Date: 2016-05-24 00:27-0500\n"
 "PO-Revision-Date: 2015-10-14 19:54-0500\n"
 "Last-Translator: Michael Beckwith <michael.d.beckwith@gmail.com>\n"
 "Language-Team: Michael Beckwith <michael.d.beckwith@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.5\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: woocommerce-product-support.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -25,98 +25,98 @@ msgstr ""
 msgid "This content is restricted to owners of %s."
 msgstr ""
 
-#: bbp-content-restriction.php:233
+#: bbp-content-restriction.php:229
 msgid "Topic creation is restricted to product owners."
 msgstr ""
 
-#: bbp-content-restriction.php:253
+#: bbp-content-restriction.php:248
 msgid "This forum is restricted to product owners."
 msgstr ""
 
-#: bbp-content-restriction.php:256
+#: bbp-content-restriction.php:251
 msgid "Only product owners can create topics."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-#: woocommerce-product-support.php:59
+#: woocommerce-product-support.php:171
 msgid "WooCommerce Product Support"
 msgstr ""
 
-#: woocommerce-product-support.php:60
+#: woocommerce-product-support.php:172
 msgid ""
 "This extension allows you to associate Products with either BuddyPress or "
 "bbPress forums.<br/>Below you can specify the default title and content for "
 "an optional first topic."
 msgstr ""
 
-#: woocommerce-product-support.php:145
+#: woocommerce-product-support.php:259
 #, php-format
 msgid ""
 "%1$s requires either %2$s <em>OR</em> %3$s with %4$s. Please install and "
 "activate at least one of these plugins."
 msgstr ""
 
-#: woocommerce-product-support.php:178
+#: woocommerce-product-support.php:292
 msgid "Settings"
 msgstr ""
 
-#: woocommerce-product-support.php:196
+#: woocommerce-product-support.php:310
 msgid "Product Support"
 msgstr ""
 
-#: woocommerce-product-support.php:244
+#: woocommerce-product-support.php:360
 msgid "Connected BuddyPress Group:"
 msgstr ""
 
-#: woocommerce-product-support.php:248 woocommerce-product-support.php:287
+#: woocommerce-product-support.php:364 woocommerce-product-support.php:403
 msgid "None"
 msgstr ""
 
-#: woocommerce-product-support.php:249
+#: woocommerce-product-support.php:365
 msgid "Create new group"
 msgstr ""
 
-#: woocommerce-product-support.php:283
+#: woocommerce-product-support.php:399
 msgid "Connected bbPress Forum:"
 msgstr ""
 
-#: woocommerce-product-support.php:288
+#: woocommerce-product-support.php:404
 msgid "Create new forum"
 msgstr ""
 
-#: woocommerce-product-support.php:299
+#: woocommerce-product-support.php:415
 #, php-format
 msgid ""
 "Create first topic using <a href=\"%s\" target=\"_blank\">default settings</"
 "a>."
 msgstr ""
 
-#: woocommerce-product-support.php:303
+#: woocommerce-product-support.php:419
 msgid "Limit forum access to product owners."
 msgstr ""
 
-#: woocommerce-product-support.php:412
+#: woocommerce-product-support.php:534
 #, php-format
 msgid "This is the support group for %s"
 msgstr ""
 
-#: woocommerce-product-support.php:578
+#: woocommerce-product-support.php:703
 msgid "Topic Title"
 msgstr ""
 
-#: woocommerce-product-support.php:579 woocommerce-product-support.php:586
+#: woocommerce-product-support.php:704 woocommerce-product-support.php:711
 msgid "Note: you can use %product_title% to output the product title."
 msgstr ""
 
-#: woocommerce-product-support.php:582
+#: woocommerce-product-support.php:707
 msgid "[IMPORTANT] %product_title% Support Guidelines"
 msgstr ""
 
-#: woocommerce-product-support.php:585
+#: woocommerce-product-support.php:710
 msgid "Topic Content"
 msgstr ""
 
-#: woocommerce-product-support.php:590
+#: woocommerce-product-support.php:715
 #, php-format
 msgid ""
 "Welcome to the %%product_title%% support forum!\n"
