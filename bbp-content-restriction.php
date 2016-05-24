@@ -176,8 +176,9 @@ add_filter( 'bbp_current_user_can_access_create_topic_form', 'wds_wcps_hide_new_
 function wds_wcps_hide_new_replies_form( $can_access ) {
 	global $user_ID;
 
-	if ( current_user_can( 'manage_options' ) )
+	if ( current_user_can( 'manage_options' ) ) {
 		return $can_access;
+	}
 
 	$restricted_to = wds_wcps_is_forum_restricted( bbp_get_topic_id() );
 
