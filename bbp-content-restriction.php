@@ -122,11 +122,8 @@ function wds_wcps_filter_replies( $content, $reply_id ) {
 
 	$restricted_to = wds_wcps_is_forum_restricted( bbp_get_topic_id() );
 
-	$restricted_id = bbp_get_topic_id();
-
 	if ( ! $restricted_to ) {
 		$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // Check for parent forum restriction.
-		$restricted_id = bbp_get_forum_id();
 	}
 
 	if ( $restricted_to && ! wds_wcps_user_has_product( $user_ID, $restricted_to ) ) {
@@ -160,7 +157,6 @@ function wds_wcps_hide_new_topic_form( $can_access ) {
 	}
 
 	$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // Check for parent forum restriction.
-	$restricted_id = bbp_get_forum_id();
 
 	if ( $restricted_to && ! wds_wcps_user_has_product( $user_ID, $restricted_to ) ) {
 		$can_access = false;
@@ -185,11 +181,8 @@ function wds_wcps_hide_new_replies_form( $can_access ) {
 
 	$restricted_to = wds_wcps_is_forum_restricted( bbp_get_topic_id() );
 
-	$restricted_id = bbp_get_topic_id();
-
 	if ( ! $restricted_to ) {
 		$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // Check for parent forum restriction.
-		$restricted_id = bbp_get_forum_id();
 	}
 
 	if ( $restricted_to && ! wds_wcps_user_has_product( $user_ID, $restricted_to ) ) {
@@ -206,7 +199,6 @@ add_filter( 'bbp_current_user_can_access_create_topic_form', 'wds_wcps_hide_new_
  * @since 2.0.0
  */
 function wds_wcps_apply_feedback_messages() {
-	global $user_ID;
 
 	if ( ! function_exists( 'bbpress' ) ) {
 		return;
