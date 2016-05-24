@@ -3,40 +3,40 @@
 /**
  * Check if forum is marked "restricted".
  *
- * @since  2.0.0
+ * @since 2.0.0
  *
- * @param  integer      $forum_id Forum post ID
- * @return integer|bool           Product ID if access is restricted, otherwise false
+ * @param  nteger $forum_id Forum post ID.
+ * @return integer|bool Product ID if access is restricted, otherwise false.
  */
 function wds_wcps_is_forum_restricted( $forum_id = 0 ) {
 
-	// Look for a connected product
+	// Look for a connected product.
 	$product_id = absint( get_post_meta( $forum_id, '_wds_wcps_connected_product', true ) );
 
-	// See if product is set to restrict access
+	// See if product is set to restrict access.
 	if ( $product_id && $restricted = get_post_meta( $product_id, '_product_limit_access', true ) )
 		return $product_id;
 
-	// If not, return false
+	// If not, return false.
 	return false;
 }
 
 /**
  * Determine if user owns a given product.
  *
- * @since  2.0.0
+ * @since 2.0.0
  *
- * @param  integer $user_id    User ID
- * @param  integer $product_id Product post ID
- * @return bool                True if user owns product, otherwise false
+ * @param integer $user_id    User ID.
+ * @param integer $product_id Product post ID.
+ * @return bool True if user owns product, otherwise false.
  */
 function wds_wcps_user_has_product( $user_id = 0, $product_id = 0 ) {
 
-	// If we're using EDD
+	// If we're using EDD.
 	if ( class_exists( 'EDD' ) )
 		return edd_has_user_purchased( $user_id, $product_id );
 
-	// Or if we're using WooCommerce
+	// Or if we're using WooCommerce.
 	elseif ( class_exists( 'WooCommerce' ) ) {
 		add_filter( 'woocommerce_reports_order_statuses', 'wds_wcps_user_has_product_status_filter', 20, 1 );
 
@@ -47,22 +47,21 @@ function wds_wcps_user_has_product( $user_id = 0, $product_id = 0 ) {
 		return $has_product;
 	}
 
-	// Otherwise, we don't care
+	// Otherwise, we don't care.
 	else
 		return false;
 
 }
 
 /**
- * Filter which statuses are allowed to determine if the current customer has valid products (order=processing,completed)
+ * Filter which statuses are allowed to determine if the current customer has valid products (order=processing,completed).
  *
  * @param $status_list
- *
  * @return array
  */
 function wds_wcps_user_has_product_status_filter( $status_list ) {
 
-	// Force 'processing', 'completed' status, don't allow others
+	// Force 'processing', 'completed' status, don't allow others.
 	$status_list = array(
 		'processing',
 		//'on-hold',
@@ -74,12 +73,12 @@ function wds_wcps_user_has_product_status_filter( $status_list ) {
 }
 
 /**
- * Hide restricted forum topics
+ * Hide restricted forum topics.
  *
- * @since  2.0.0
+ * @since 2.0.0
  *
- * @param  array $query Topic query
- * @return array        Potentially modified query
+ * @param array $query Topic query.
+ * @return array Potentially modified query.
  */
 function wds_wcps_filter_bbp_topics_list( $query ) {
 
@@ -92,9 +91,9 @@ function wds_wcps_filter_bbp_topics_list( $query ) {
 
 		$restricted = wds_wcps_is_forum_restricted( bbp_get_forum_id() );
 
-		// If this forum is restricted and the user is not logged in nor a product owner
+		// If this forum is restricted and the user is not logged in nor a product owner.
 		if ( $restricted && ( ! is_user_logged_in() || ! wds_wcps_user_has_product( $user_ID, $restricted ) ) ) {
-			return array(); // return an empty query
+			return array(); // Return an empty query.
 		}
 	}
 
@@ -105,11 +104,11 @@ add_filter( 'bbp_has_topics_query', 'wds_wcps_filter_bbp_topics_list' );
 /**
  * Hide topic reply content.
  *
- * @since  2.0.0
+ * @since 2.0.0
  *
- * @param  string  $content  Reply content
- * @param  integer $reply_id Reply post ID
- * @return string            Potentially modified reply content
+ * @param string  $content  Reply content.
+ * @param integer $reply_id Reply post ID.
+ * @return string Potentially modified reply content.
  */
 function wds_wcps_filter_replies( $content, $reply_id ) {
 	global $user_ID, $post;
@@ -122,7 +121,7 @@ function wds_wcps_filter_replies( $content, $reply_id ) {
 	$restricted_id = bbp_get_topic_id();
 
 	if ( ! $restricted_to ) {
-		$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // check for parent forum restriction
+		$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // Check for parent forum restriction.
 		$restricted_id = bbp_get_forum_id();
 	}
 
@@ -137,17 +136,17 @@ function wds_wcps_filter_replies( $content, $reply_id ) {
 
 	}
 
-	return $content; // not restricted
+	return $content; // Not restricted.
 }
 add_filter( 'bbp_get_reply_content', 'wds_wcps_filter_replies', 2, 999 );
 
 /**
  * Hide "new topic" form.
  *
- * @since  2.0.0
+ * @since 2.0.0
  *
- * @param  bool $can_access User's current topic access
- * @return bool             User's modified topic access
+ * @param bool $can_access User's current topic access.
+ * @return bool User's modified topic access.
  */
 function wds_wcps_hide_new_topic_form( $can_access ) {
 	global $user_ID;
@@ -155,7 +154,7 @@ function wds_wcps_hide_new_topic_form( $can_access ) {
 	if ( current_user_can( 'manage_options' ) )
 		return $can_access;
 
-	$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // check for parent forum restriction
+	$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // Check for parent forum restriction.
 	$restricted_id = bbp_get_forum_id();
 
 	if ( $restricted_to && ! wds_wcps_user_has_product( $user_ID, $restricted_to ) ) {
@@ -166,12 +165,12 @@ function wds_wcps_hide_new_topic_form( $can_access ) {
 add_filter( 'bbp_current_user_can_access_create_topic_form', 'wds_wcps_hide_new_topic_form' );
 
 /**
- * Hide "new reply" form
+ * Hide "new reply" form.
  *
- * @since  2.0.0
+ * @since 2.0.0
  *
- * @param  bool $can_access User's current reply access
- * @return bool             User's modified reply access
+ * @param bool $can_access User's current reply access.
+ * @return bool User's modified reply access.
  */
 function wds_wcps_hide_new_replies_form( $can_access ) {
 	global $user_ID;
@@ -184,7 +183,7 @@ function wds_wcps_hide_new_replies_form( $can_access ) {
 	$restricted_id = bbp_get_topic_id();
 
 	if ( ! $restricted_to ) {
-		$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // check for parent forum restriction
+		$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // Check for parent forum restriction.
 		$restricted_id = bbp_get_forum_id();
 	}
 
@@ -199,7 +198,7 @@ add_filter( 'bbp_current_user_can_access_create_topic_form', 'wds_wcps_hide_new_
 /**
  * Apply custom feedback messages on page load.
  *
- * @since  2.0.0
+ * @since 2.0.0
  */
 function wds_wcps_apply_feedback_messages() {
 	global $user_ID;
@@ -217,14 +216,14 @@ function wds_wcps_apply_feedback_messages() {
 add_action( 'template_redirect', 'wds_wcps_apply_feedback_messages' );
 
 /**
- * Generate custom feedback messages for restricted topics
+ * Generate custom feedback messages for restricted topics.
  *
- * @since  2.0.0
+ * @since 2.0.0
  *
- * @param  string $translated_text Translated content
- * @param  string $text            Original content
- * @param  string $domain          Textdomain
- * @return string                  Updated content
+ * @param string $translated_text Translated content.
+ * @param string $text            Original content.
+ * @param string $domain          Textdomain.
+ * @return string Updated content.
  */
 function wds_wcps_topic_feedback_messages( $translated_text, $text, $domain ) {
 
@@ -237,14 +236,14 @@ function wds_wcps_topic_feedback_messages( $translated_text, $text, $domain ) {
 }
 
 /**
- * Generate custom feedback messages for restricted forums
+ * Generate custom feedback messages for restricted forums.
  *
- * @since  2.0.0
+ * @since 2.0.0
  *
- * @param  string $translated_text Translated content
- * @param  string $text            Original content
- * @param  string $domain          Textdomain
- * @return string                  Updated content
+ * @param string $translated_text Translated content.
+ * @param string $text            Original content.
+ * @param string $domain          Textdomain.
+ * @return string Updated content.
  */
 function wds_wcps_forum_feedback_messages( $translated_text, $text, $domain ) {
 
