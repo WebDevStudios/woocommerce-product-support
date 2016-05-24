@@ -168,8 +168,8 @@ function wds_wcps_init() {
 
 			// Setup our extension name and description.
 			$this->id                 = 'proudct_support';
-			$this->method_title       = __( 'WooCommerce Product Support', 'wcps' );
-			$this->method_description = __( 'This extension allows you to associate Products with either BuddyPress or bbPress forums.<br/>Below you can specify the default title and content for an optional first topic.', 'wcps' );
+			$this->method_title       = esc_html__( 'WooCommerce Product Support', 'wcps' );
+			$this->method_description = esc_html__( 'This extension allows you to associate Products with either BuddyPress or bbPress forums.<br/>Below you can specify the default title and content for an optional first topic.', 'wcps' );
 			$this->settings_link      = admin_url( 'admin.php?page=wc-settings&tab=integration&section=' . $this->id );
 			$this->plugin             = plugin_basename( __FILE__ );
 
@@ -357,12 +357,12 @@ function wds_wcps_init() {
 			$output = '';
 
 			// Render our label.
-			$output .= '<p><label for="product_group">' . __( 'Connected BuddyPress Group:', 'wcps' ) . '</label> ';
+			$output .= '<p><label for="product_group">' . esc_html__( 'Connected BuddyPress Group:', 'wcps' ) . '</label> ';
 
 			// Setup our select input.
 			$output .= '<select name="product_group" id="support_group">';
-			$output .= '<option value="">' . __( 'None', 'wcps' ) . '</option>';
-			$output .= '<option value="new">' . __( 'Create new group', 'wcps' ) . '</option>';
+			$output .= '<option value="">' . esc_html__( 'None', 'wcps' ) . '</option>';
+			$output .= '<option value="new">' . esc_html__( 'Create new group', 'wcps' ) . '</option>';
 
 			// Loop through all existing BP groups and include them here.
 			$bp_groups = groups_get_groups( array( 'show_hidden' => true ) );
@@ -396,12 +396,12 @@ function wds_wcps_init() {
 			$output = '';
 
 			// Render our label.
-			$output .= '<p><label for="product_forum">' . __( 'Connected bbPress Forum:', 'wcps' ) . '</label> ';
+			$output .= '<p><label for="product_forum">' . esc_html__( 'Connected bbPress Forum:', 'wcps' ) . '</label> ';
 
 			// Build an entire select input for our forums.
 			$output .= '<select name="product_forum" id="product_forum">' . "\n";
-			$output .= '<option value="" class="level-0">' . __( 'None', 'wcps' ) . '</option>' . "\n";
-			$output .= '<option value="new" class="level-0">' . __( 'Create new forum', 'wcps' ) . '</option>' . "\n";
+			$output .= '<option value="" class="level-0">' . esc_html__( 'None', 'wcps' ) . '</option>' . "\n";
+			$output .= '<option value="new" class="level-0">' . esc_html__( 'Create new forum', 'wcps' ) . '</option>' . "\n";
 			$output .= bbp_get_dropdown( array(
 				'selected'           => $product_forum,
 				'select_id'          => 'product_forum',
@@ -412,11 +412,11 @@ function wds_wcps_init() {
 			$output .= '</select>';
 
 			// Create first topic.
-			$output .= '<p class="enable-first-post"><label for="create_first_post"><input type="checkbox" id="create_first_post" name="create_first_post" value="true"> '. sprintf( __( 'Create first topic using <a href="%s" target="_blank">default settings</a>.', 'wcps' ), admin_url('admin.php?page=woocommerce_settings&tab=integration&section=buddypress') ) . '</label></p>';
+			$output .= '<p class="enable-first-post"><label for="create_first_post"><input type="checkbox" id="create_first_post" name="create_first_post" value="true"> '. sprintf( esc_html__( 'Create first topic using <a href="%s" target="_blank">default settings</a>.', 'wcps' ), admin_url('admin.php?page=woocommerce_settings&tab=integration&section=buddypress') ) . '</label></p>';
 
 			// Restrict access to product owners.
 			if ( ! defined( 'EDD_CR_PLUGIN_DIR' ) ) {
-				$output .= '<p class="limit-access"><label for="limit_access"><input type="checkbox" id="limit_access" name="limit_access" value="true" ' . checked( $limit_access, true, false ) . '> ' . __( 'Limit forum access to product owners.', 'wcps' ) . '</label></p>';
+				$output .= '<p class="limit-access"><label for="limit_access"><input type="checkbox" id="limit_access" name="limit_access" value="true" ' . checked( $limit_access, true, false ) . '> ' . esc_html__( 'Limit forum access to product owners.', 'wcps' ) . '</label></p>';
 			}
 
 			// JS to conditionally show checkbox for "insert first post".
@@ -531,7 +531,7 @@ function wds_wcps_init() {
 					'creator_id'   => bp_loggedin_user_id(),
 					'name'         => $product_title,
 					'slug'         => $product_slug,
-					'description'  => sprintf( __( 'This is the support group for %s', 'wcps' ), $product_title ),
+					'description'  => sprintf( esc_html__( 'This is the support group for %s', 'wcps' ), $product_title ),
 					'status'       => 'hidden',
 					'date_created' => bp_core_current_time(),
 					'enable_forum' => true
@@ -700,15 +700,15 @@ function wds_wcps_init() {
 		public function init_form_fields() {
 			$this->form_fields = array(
 				'bp_topic_title'  => array(
-					'title'       => __( 'Topic Title', 'wcps' ),
-					'description' => '<br/>' . __( 'Note: you can use %product_title% to output the product title.', 'wcps' ),
+					'title'       => esc_html__( 'Topic Title', 'wcps' ),
+					'description' => '<br/>' . esc_html__( 'Note: you can use %product_title% to output the product title.', 'wcps' ),
 					'type'        => 'text',
 					'css'         => 'width:450px;',
-					'default'     => __( '[IMPORTANT] %product_title% Support Guidelines', 'wcps' ),
+					'default'     => esc_attr__( '[IMPORTANT] %product_title% Support Guidelines', 'wcps' ),
 					),
 				'bp_topic_text'   => array(
-					'title'       => __( 'Topic Content', 'wcps' ),
-					'description' => '<br/>' . __( 'Note: you can use %product_title% to output the product title.', 'wcps' ),
+					'title'       => esc_html__( 'Topic Content', 'wcps' ),
+					'description' => '<br/>' . esc_html__( 'Note: you can use %product_title% to output the product title.', 'wcps' ),
 					'type'        => 'textarea',
 					'css'         => 'width:450px; height:250px;',
 					'default'     => sprintf(
