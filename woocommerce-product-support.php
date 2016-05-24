@@ -637,6 +637,8 @@ function wds_wcps_init() {
 		 */
 		public function admin_options() {
 
+			parent::admin_options();
+
 			echo '<h3>' . $this->method_title . '</h3>';
 			echo wpautop( $this->method_description );
 
