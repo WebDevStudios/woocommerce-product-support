@@ -40,12 +40,7 @@ function wds_wcps_is_forum_restricted( $forum_id = 0 ) {
  */
 function wds_wcps_user_has_product( $user_id = 0, $product_id = 0 ) {
 
-	// If we're using EDD.
-	if ( class_exists( 'EDD' ) )
-		return edd_has_user_purchased( $user_id, $product_id );
-
-	// Or if we're using WooCommerce.
-	elseif ( class_exists( 'WooCommerce' ) ) {
+	if ( class_exists( 'WooCommerce' ) ) {
 		add_filter( 'woocommerce_reports_order_statuses', 'wds_wcps_user_has_product_status_filter', 20, 1 );
 
 		$has_product = woocommerce_customer_bought_product( null, $user_id, $product_id );
