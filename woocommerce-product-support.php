@@ -24,12 +24,18 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
 
 /**
  * Plugin updates.
+ *
+ * @since 1.0.1
  */
 woothemes_queue_update( plugin_basename( __FILE__ ), 'f131808376e0d50a3cdbd2229735b898', '122141' );
 
-// We need to wait until all plugins are loaded before we can continue so everything works right.
-add_action( 'plugins_loaded', 'wds_wcps_init' );
-
+/**
+ * Load everything we need.
+ *
+ * @since 1.0.0
+ *
+ * @return bool
+ */
 function wds_wcps_init() {
 
 	// Stop here if WooCommerce isn't present.
@@ -679,6 +685,7 @@ function wds_wcps_init() {
 	} /* WC_Product_Support */
 
 } /* wds_wcps_init() */
+add_action( 'plugins_loaded', 'wds_wcps_init' );
 
 /**
  * Add the integration to WooCommerce.
