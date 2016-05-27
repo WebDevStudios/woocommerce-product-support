@@ -2,7 +2,7 @@
 /**
  * WooCommerce Product Support.
  * @package Woocommerce Product Support
- * @author  WebDevStudios.
+ * @author  WebDevStudios
  * @since   1.0.0
  */
 
