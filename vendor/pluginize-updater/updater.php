@@ -17,13 +17,17 @@ include_once( dirname( __FILE__ ) . '/class-pluginize-product.php' );
 include_once( dirname( __FILE__ ) . '/class-pluginize-product-api.php' );
 include_once( dirname( __FILE__ ) . '/class-pluginize-product-license-menu.php' );
 
-if ( ! function_exists( 'pluginize_plugin_edd_cybersource_gateway' ) ) {
+if ( ! function_exists( 'pluginize_plugin_woo_product_support' ) ) {
 	/**
 	 * Fire it up.
 	 *
 	 * @since 1.0.0
 	 */
-	function pluginize_plugin_edd_cybersource_gateway() {
+	function pluginize_plugin_woo_product_support() {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
 		// Needs to fetch saved values from options.
 		// All values are demo.
 		// Should probably get its own method.
@@ -63,5 +67,5 @@ if ( ! function_exists( 'pluginize_plugin_edd_cybersource_gateway' ) ) {
 		$menu_setup = new Pluginize_Product_License_menu( $product, $api );
 		$menu_setup->do_hooks();
 	}
-	add_action( 'init', 'pluginize_plugin_edd_cybersource_gateway' );
+	add_action( 'init', 'pluginize_plugin_woo_product_support' );
 }
