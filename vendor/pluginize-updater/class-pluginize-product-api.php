@@ -212,7 +212,7 @@ if ( ! class_exists( 'Pluginize_Product_API' ) ) {
 
 			if ( ! empty( $result ) ) {
 				if ( ! empty( $result->errors ) ) {
-					foreach( $result->errors as $error ) {
+					foreach ( $result->errors as $error ) {
 						echo $this->set_admin_error( $this->get_error_message( $error ) );
 					}
 				}
@@ -387,7 +387,6 @@ if ( ! class_exists( 'Pluginize_Product_API' ) ) {
 		 */
 		public function get_activation_message( $result = '' ) {
 			$response = json_decode( $result );
-
 
 			if ( isset( $response->code ) ) {
 				$slug_title = $slug_name = $message = $pluginize_message = '';
