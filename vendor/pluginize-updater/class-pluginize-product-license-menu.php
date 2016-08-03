@@ -278,6 +278,11 @@ if ( ! class_exists( 'Pluginize_Product_License_menu' ) ) {
 		 */
 		public function validate_license_settings( $saved_values = array() ) {
 
+			// Validate method gets called regularly. Only act if we have new data.
+			if ( is_null( $saved_values ) ) {
+				return $this->options;
+			}
+
 			$new_values      = array();
 			$options         = $this->options;
 			$error           = false;
