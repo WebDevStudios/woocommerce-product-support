@@ -16,20 +16,6 @@ Author URI: http://webdevstudios.com
 */
 
 /**
- * Required functions.
- */
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( 'woo-includes/woo-functions.php' );
-}
-
-/**
- * Plugin updates.
- *
- * @since 1.0.1
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), 'f131808376e0d50a3cdbd2229735b898', '122141' );
-
-/**
  * Load everything we need.
  *
  * @since 1.0.0
