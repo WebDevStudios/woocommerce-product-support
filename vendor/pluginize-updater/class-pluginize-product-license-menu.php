@@ -302,7 +302,7 @@ if ( ! class_exists( 'Pluginize_Product_License_menu' ) ) {
 					$activate_result = $this->api_object->activate( $new_values['pluginize_api_key'], $new_values['pluginize_email'] );
 				}
 
-				if ( is_object( $activate_result ) && ! empty( $activate_result->statuses )) {
+				if ( is_object( $activate_result ) && ! empty( $activate_result->statuses ) ) {
 					$error = true;
 					$key = $activate_result->statuses[1];
 					$error_message = $activate_result->statuses[2];
@@ -323,7 +323,7 @@ if ( ! class_exists( 'Pluginize_Product_License_menu' ) ) {
 
 				$activate_result = $this->api_object->activate( $new_values['pluginize_api_key'], $new_values['pluginize_email'] );
 
-				if ( ! empty( $activate_result->statuses )) {
+				if ( ! empty( $activate_result->statuses ) ) {
 					$error = true;
 					$key = $activate_result->statuses[1];
 					$error_message = $activate_result->statuses[2];
@@ -335,7 +335,7 @@ if ( ! class_exists( 'Pluginize_Product_License_menu' ) ) {
 			if ( empty( $new_values['pluginize_api_key'] ) && empty( $new_values['pluginize_email'] ) ) {
 				$deactivate_result = $this->api_object->deactivate();
 
-				if ( ! empty( $deactivate_result->statuses )) {
+				if ( ! empty( $deactivate_result->statuses ) ) {
 					$error = true;
 					$key = $deactivate_result->statuses[1];
 					$error_message = $deactivate_result->statuses[2];
@@ -358,6 +358,8 @@ if ( ! class_exists( 'Pluginize_Product_License_menu' ) ) {
 				}
 			}
 
+			// Re-fetch after activation attempt above.
+			// @todo Re-use result from $activate_result.
 			$current_status = $this->api_object->status();
 
 			$status = ( isset( $current_status->status_check ) && 'active' === $current_status->status_check ) ? esc_html__( 'Active', 'pluginize_updater' ) : esc_html__( 'Inactive', 'pluginize_updater' );
