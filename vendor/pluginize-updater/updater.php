@@ -50,7 +50,7 @@ if ( ! function_exists( 'pluginize_plugin_woo_product_support' ) ) {
 		$details['changelog_restapi_url'] = '';
 		$details['plugin_name']           = plugin_basename( dirname( dirname( dirname( __FILE__ ) ) ) ) . '/woocommerce-product-support.php';
 		$details['menu_page']             = array(
-			'parent_slug'    => '',
+			'parent_slug'    => 'options-general.php',
 			'page_title'     => esc_html__( 'WooCommerce Product Support License', 'wcps' ),
 			'menu_title'     => esc_html__( 'WooCommerce Product Support License', 'wcps' ),
 			'menu_slug'      => 'pluginize-woo-product-support-license',
