@@ -192,6 +192,8 @@ function wds_wcps_init() {
 					include_once( trailingslashit( $this->directory_path ) . 'bbp-content-restriction.php' );
 				}
 
+				include_once( trailingslashit( $this->directory_path ) . 'vendor/pluginize-updater/updater.php' );
+
 				// Hook everything where it belongs.
 				add_action( 'admin_init', array( $this, 'register_metabox' ) );
 				add_action( 'publish_product', array( $this, 'publish_product' ) );
