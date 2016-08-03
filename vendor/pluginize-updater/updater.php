@@ -24,9 +24,14 @@ if ( ! function_exists( 'pluginize_plugin_woo_product_support' ) ) {
 	 * @since 1.0.0
 	 */
 	function pluginize_plugin_woo_product_support() {
+
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
 		}
+
+		// Won't double add, if existing already.
+		add_option( 'pluginize_woo_product_support_settings', array() );
+		add_option( 'pluginize_woo_product_support_instance', '' );
 
 		// Needs to fetch saved values from options.
 		// All values are demo.
