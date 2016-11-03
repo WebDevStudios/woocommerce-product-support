@@ -136,6 +136,13 @@ function wds_wcps_init() {
 		public $use_bbpress = false;
 
 		/**
+		 * Plugin version.
+		 *
+		 * @var string
+		 */
+		public static $version = '2.0.2';
+
+		/**
 		 * Initialize all our checks and integration points.
 		 *
 		 * @access public
@@ -192,7 +199,7 @@ function wds_wcps_init() {
 					include_once( trailingslashit( $this->directory_path ) . 'bbp-content-restriction.php' );
 				}
 
-				include_once( trailingslashit( $this->directory_path ) . 'vendor/pluginize-updater/updater.php' );
+				include_once( trailingslashit( $this->directory_path ) . 'vendor/edd-updater/license-handler.php' );
 
 				// Hook everything where it belongs.
 				add_action( 'admin_init', array( $this, 'register_metabox' ) );
@@ -202,6 +209,7 @@ function wds_wcps_init() {
 				add_action( 'woocommerce_order_status_completed', array( $this, 'wc_process_order' ) );
 				add_action( 'woocommerce_update_options_integration', array( $this, 'process_admin_options' ) );
 
+				$this->updater();
 			}
 
 		} /* includes() */
@@ -773,6 +781,25 @@ function wds_wcps_init() {
 			}
 
 		} /* bp_add_user_to_group() */
+
+		/**
+		 * Run our updater routine.
+		 *
+		 * @since 2.1.0
+		 */
+		public function updater() {
+			if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
+				require_once $this->directory_path . 'vendor/edd-updater/EDD_SL_Plugin_Updater.php';
+			}
+			$license_key = trim( get_option( 'wds_wcps_license_key' ) );
+			$edd_updater = new EDD_SL_Plugin_Updater( PLUGINIZE_STORE_URL, __FILE__, array(
+					'version'   => self::$version,     // Current version number.
+					'license'   => $license_key,       // license key (used get_option above to retrieve from DB)
+					'item_name' => 'Product Support Extension', // name of this plugin
+					'author'    => 'Pluginize'         // author of this plugin.
+				)
+			);
+		}
 
 	} /* WC_Product_Support */
 
