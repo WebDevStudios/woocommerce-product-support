@@ -801,6 +801,10 @@ function wds_wcps_init() {
 } /* wds_wcps_init() */
 add_action( 'plugins_loaded', 'wds_wcps_init' );
 
+function wds_wcps_woocommerce_store_url() {
+	return 'https://pluginize.com';
+}
+
 /**
  * Add the integration to WooCommerce.
  *
