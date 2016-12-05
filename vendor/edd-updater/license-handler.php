@@ -1,13 +1,6 @@
 <?php
-/**
- * Handle our EDD license activate/deactivation.
- *
- * @since 1.4.0
- * @package CPTUIExtended.
- */
 
-define( 'PLUGINIZE_STORE_URL', 'http://pluginize.staging.wpengine.com' );
-define( 'PLUGINIZE_LICENSE_PAGE', 'wds_wcps_license_page' );
+define( 'PLUGINIZE_LICENSE_PAGE_WCPS', 'wds_wcps_license_page' );
 
 /**
  * Add our menu item.
@@ -179,7 +172,7 @@ function wds_wcps_activate_license() {
 	}
 
 	if ( ! empty( $message ) ) {
-		$base_url = admin_url( 'admin.php?page=' . PLUGINIZE_LICENSE_PAGE );
+		$base_url = admin_url( 'admin.php?page=' . PLUGINIZE_LICENSE_PAGE_WCPS );
 		$redirect = add_query_arg( array( 'sl_activation' => 'false', 'message' => urlencode( $message ) ), $base_url );
 
 		wp_redirect( $redirect );
@@ -187,7 +180,7 @@ function wds_wcps_activate_license() {
 	}
 
 	update_option( 'wds_wcps_license_status', $license_data->license );
-	wp_redirect( admin_url( 'admin.php?page=' . PLUGINIZE_LICENSE_PAGE ) );
+	wp_redirect( admin_url( 'admin.php?page=' . PLUGINIZE_LICENSE_PAGE_WCPS ) );
 	exit();
 }
 add_action( 'admin_init', 'wds_wcps_activate_license' );
@@ -218,7 +211,7 @@ function wds_wcps_deactivate_license() {
 			$message = __( 'An error occurred, please try again.', 'wcps' );
 		}
 
-		$base_url = admin_url( 'plugins.php?page=' . PLUGINIZE_LICENSE_PAGE );
+		$base_url = admin_url( 'plugins.php?page=' . PLUGINIZE_LICENSE_PAGE_WCPS );
 		$redirect = add_query_arg( array( 'sl_activation' => 'false', 'message' => urlencode( $message ) ), $base_url );
 
 		wp_redirect( $redirect );
@@ -233,7 +226,7 @@ function wds_wcps_deactivate_license() {
 		delete_option( 'wds_wcps_license_status' );
 	}
 
-	wp_redirect( admin_url( 'admin.php?page=' . PLUGINIZE_LICENSE_PAGE ) );
+	wp_redirect( admin_url( 'admin.php?page=' . PLUGINIZE_LICENSE_PAGE_WCPS ) );
 	exit();
 }
 add_action( 'admin_init', 'wds_wcps_deactivate_license' );
@@ -258,7 +251,7 @@ function wds_wcps_activate_deactivate( $action = 'activate_license' ) {
 		'url'        => home_url()
 	);
 
-	return wp_remote_post( PLUGINIZE_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+	return wp_remote_post( wds_wcps_woocommerce_store_url(), array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 }
 
 /**
