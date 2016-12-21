@@ -261,19 +261,21 @@ function wds_wcps_activate_deactivate( $action = 'activate_license' ) {
  */
 function wds_wcps_admin_notices() {
 	if ( isset( $_GET['sl_activation'] ) && ! empty( $_GET['message'] ) ) {
-		switch( $_GET['sl_activation'] ) {
-			case 'false':
-				$message = urldecode( $_GET['message'] );
-				?>
-				<div class="error">
-					<p><?php echo $message; ?></p>
-				</div>
-				<?php
-				break;
+		if ( isset( $_GET['page'] ) && PLUGINIZE_LICENSE_PAGE_WCPS === $_GET['page'] ) {
+			switch( $_GET['sl_activation'] ) {
+				case 'false':
+					$message = urldecode( $_GET['message'] );
+					?>
+					<div class="error">
+						<p><?php echo $message; ?></p>
+					</div>
+					<?php
+					break;
 
-			case 'true':
-			default:
-				break;
+				case 'true':
+				default:
+					break;
+			}
 		}
 	}
 }
