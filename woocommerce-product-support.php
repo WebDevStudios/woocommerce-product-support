@@ -195,6 +195,10 @@ function wds_wcps_init() {
 				}
 
 				include_once( trailingslashit( $this->directory_path ) . 'vendor/edd-updater/license-handler.php' );
+				include_once( $this->directory_path . '/template-tags.php' );
+				include_once( $this->directory_path . '/shortcodes/woo_product_support_forum_link.php' );
+				include_once( $this->directory_path . '/shortcodes/woo_user_product_support_forum_list.php' );
+				include_once( $this->directory_path . '/widgets/widgets.php' );
 
 				// Hook everything where it belongs.
 				add_action( 'admin_init', array( $this, 'register_metabox' ) );
