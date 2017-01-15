@@ -85,7 +85,7 @@ function wds_wcps_get_user_product_support_forum_list( $user_id = 0 ) {
 
 	$list = '';
 
-	#$purchases = edd_get_users_purchased_products( $user_id );
+	$purchases = wds_wcps_get_customer_orders( $user_id );
 
 	if ( ! $purchases ) {
 		return $list;
@@ -287,3 +287,29 @@ function wds_wcps_forum_links_in_email( $email_body, $payment_id, $payment_data 
 	return $email_body;
 }
 #add_filter( 'edd_purchase_receipt', 'wds_wcps_forum_links_in_email', 10, 3 );
+
+/**
+ * Grab a user's ordered products.
+ *
+ * @since 2.1.0
+ *
+ * @param int $user_id User ID to fetch.
+ * @return array
+ */
+function wds_wcps_get_customer_orders( $user_id = 0 ) {
+
+	// Get all customer orders.
+	$customer_orders = get_posts( array(
+		'numberposts' => -1,
+		'meta_key'    => '_customer_user',
+		'meta_value'  => $user_id,
+		'post_type'   => wc_get_order_types(),
+		'post_status' => array_keys( wc_get_order_statuses() ),
+	) );
+
+	if ( ! is_wp_error( $customer_orders ) ) {
+		return $customer_orders;
+	}
+
+	return array();
+}
