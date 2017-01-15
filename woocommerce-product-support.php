@@ -279,7 +279,7 @@ function wds_wcps_init() {
 		public function add_plugin_settings_link( $links, $file ) {
 
 			// If the filter is for this plugin.
-			if ( $file == $this->basename ) {
+			if ( $file === $this->basename ) {
 				// Write a settings link and add it to the front of the array.
 				$settings_link = sprintf(
 					'<a href="%1$s">%2$s</a>',
@@ -303,7 +303,7 @@ function wds_wcps_init() {
 			add_meta_box(
 				'support_metabox',
 				__( 'Product Support', 'wcps' ),
-				array( $this, 'render_metabox'),
+				array( $this, 'render_metabox' ),
 				'product',
 				'side',
 				'default'
@@ -480,12 +480,12 @@ function wds_wcps_init() {
 			$limit_access      = isset( $_POST['limit_access'] ) ? true : false;
 
 			// If BP is enabled, and we have a group, create the group.
-			if ( $this->use_buddypress && 'new' == $product_group ) {
+			if ( $this->use_buddypress && 'new' === $product_group ) {
 				$product_group = $this->bp_create_group( $product_id );
 			}
 
 			// If bbP is enabled, and we have a forum, create the forum.
-			if ( $this->use_bbpress && 'new' == $product_forum ) {
+			if ( $this->use_bbpress && 'new' === $product_forum ) {
 				$product_forum = $this->bbp_create_forum( $product_id, $create_first_post );
 			}
 
@@ -529,7 +529,7 @@ function wds_wcps_init() {
 					'description'  => sprintf( esc_html__( 'This is the support group for %s', 'wcps' ), $product_title ),
 					'status'       => 'hidden',
 					'date_created' => bp_core_current_time(),
-					'enable_forum' => true
+					'enable_forum' => true,
 				) );
 
 				// Update the member count and last activity.
@@ -590,7 +590,7 @@ function wds_wcps_init() {
 				'post_content'   => '',
 				'post_title'     => get_the_title( $product_id ),
 				'menu_order'     => 0,
-				'comment_status' => 'closed'
+				'comment_status' => 'closed',
 			) );
 
 			// If the option is set to auto-create the first topic, let's create it.
@@ -631,7 +631,7 @@ function wds_wcps_init() {
 					'menu_order'     => 0,
 				),
 				array(
-					'forum_id'       => $forum_id
+					'forum_id'       => $forum_id,
 				)
 			);
 
@@ -680,12 +680,7 @@ function wds_wcps_init() {
 
 				}
 			}
-
 		} /* update_legacy_meta() */
-
-
-		/* WooCommerce Specific **********************************************/
-
 
 		/**
 		 * Initialise our Settings Form Fields.
@@ -700,7 +695,7 @@ function wds_wcps_init() {
 					'type'        => 'text',
 					'css'         => 'width:450px;',
 					'default'     => esc_attr__( '[IMPORTANT] %product_title% Support Guidelines', 'wcps' ),
-					),
+				),
 				'bp_topic_text'   => array(
 					'title'       => esc_html__( 'Topic Content', 'wcps' ),
 					'description' => '<br/>' . esc_html__( 'Note: you can use %product_title% to output the product title.', 'wcps' ),
@@ -715,8 +710,8 @@ function wds_wcps_init() {
 
 						Thank you!
 						-The %s Team', 'wcps' ),
-						get_bloginfo('name')
-						),
+						get_bloginfo( 'name' )
+					),
 					)
 			);
 		} /* init_form_fields() */
@@ -775,7 +770,6 @@ function wds_wcps_init() {
 					if ( $group_id ) {
 						groups_join_group( $group_id, $user_id );
 					}
-
 				}
 			}
 
@@ -795,11 +789,10 @@ function wds_wcps_init() {
 					'version'   => '2.0.2',     // Current version number.
 					'license'   => $license_key,       // license key (used get_option above to retrieve from DB)
 					'item_name' => 'Product Support Extension', // name of this plugin
-					'author'    => 'Pluginize'         // author of this plugin.
+					'author'    => 'Pluginize',         // author of this plugin.
 				)
 			);
 		}
-
 	} /* WC_Product_Support */
 
 } /* wds_wcps_init() */
