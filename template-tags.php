@@ -157,7 +157,7 @@ function wds_wcps_the_user_product_support_forum_list( $user_id = 0 ) {
 }
 
 /**
- * Query for and return support forum IDs for EDD product.
+ * Query for and return support forum IDs for Woo product.
  *
  * @since 2.1.0
  *
