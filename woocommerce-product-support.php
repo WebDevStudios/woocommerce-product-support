@@ -753,19 +753,17 @@ function wds_wcps_init() {
 		 * @since 1.0.0
 		 */
 		public function admin_options() {
+			?>
 
-			parent::admin_options();
+			<h3><?php echo esc_html( $this->method_title ); ?></h3>
+			<?php echo wpautop( $this->method_description ); ?>
 
-			echo '<h3>' . $this->method_title . '</h3>';
-			echo wpautop( $this->method_description );
-
-			echo '<table class="form-table">';
-			$this->generate_settings_html();
-			echo '</table>';
-
-			echo '<input type="hidden" name="section" value="' . $this->id .'" />';
-
-		} /* admin_options() */
+			<table class="form-table">
+			<?php $this->generate_settings_html(); ?>
+			</table>
+			<input type="hidden" name="section" value="<?php echo esc_attr( $this->id ); ?>" />
+			<?php
+		}
 
 		/**
 		 * Add user to BP group when order is completed.
