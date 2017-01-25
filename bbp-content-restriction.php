@@ -66,8 +66,7 @@ function wds_wcps_user_has_product_status_filter( $status_list = array() ) {
 	// Force 'processing', 'completed' status, don't allow others.
 	$status_list = array(
 		'processing',
-		//'on-hold',
-		'completed'
+		'completed',
 	);
 
 	return $status_list;
