@@ -712,7 +712,7 @@ function wds_wcps_init() {
 						-The %s Team', 'wcps' ),
 						get_bloginfo( 'name' )
 					),
-					)
+				),
 			);
 		} /* init_form_fields() */
 
@@ -815,6 +815,5 @@ function wds_wcps_woocommerce_integrations( $integrations ) {
 	$integrations[] = 'WC_Product_Support';
 
 	return $integrations;
-
 }
 add_filter( 'woocommerce_integrations', 'wds_wcps_woocommerce_integrations' );
