@@ -605,7 +605,7 @@ function wds_wcps_init() {
 
 			// Create our forum and grab its ID.
 			$forum_id = bbp_insert_forum( array(
-				'post_parent'    => 0, // Forum ID.
+				'post_parent'    => absint( get_post_meta( $product_id, '_product_forum_parent', true ) ), // Forum ID.
 				'post_status'    => bbp_get_public_status_id(),
 				'post_type'      => bbp_get_forum_post_type(),
 				'post_author'    => bbp_get_current_user_id(),
