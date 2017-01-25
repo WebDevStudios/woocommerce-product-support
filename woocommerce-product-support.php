@@ -431,47 +431,6 @@ function wds_wcps_init() {
 				$output .= '<p class="limit-access"><label for="limit_access"><input type="checkbox" id="limit_access" name="limit_access" value="true" ' . checked( $limit_access, true, false ) . '> ' . esc_html__( 'Limit forum access to product owners.', 'wcps' ) . '</label></p>';
 			}
 
-			// JS to conditionally show checkbox for "insert first post".
-			$output .= '
-				<script type="text/javascript">
-					jQuery("#product_forum").change( function() {
-
-						// Setup our variables.
-						var $this               = jQuery(this);
-						var $create_topic_wrap  = jQuery(".enable-first-post");
-						var $create_topic_input = jQuery("#create_first_post");
-						var $limit_access_wrap  = jQuery(".limit-access").show();
-						var $limit_access_input = jQuery("#limit_access");
-
-						// If no forum is selected.
-						if ( "" === $this.val() ) {
-							// Hide and uncheck first post checkbox.
-							$create_topic_wrap.hide(); // Hide the checkbox container.
-							$create_topic_input.attr("checked", false); // Uncheck the checkbox (for good measure).
-
-							// Hide and uncheck access limiter.
-							$limit_access_wrap.hide(); // Hide the checkbox container.
-							$limit_access_input.attr("checked", false); // Uncheck the checkbox (for good measure).
-
-						// If a new forum is selected.
-						} else if ( "new" === $this.val()) {
-							$limit_access_wrap.show();
-							$create_topic_wrap.show();
-
-						// If any forum is selected.
-						} else {
-							// Show access limiter.
-							$limit_access_wrap.show();
-
-							// Hide and uncheck first post checkbox.
-							$create_topic_wrap.hide(); // Hide the checkbox container.
-							$create_topic_input.attr("checked", false); // Uncheck the checkbox (for good measure).
-						}
-
-					}).change();
-				</script>
-			';
-
 			return $output;
 
 		}
