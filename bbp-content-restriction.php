@@ -83,7 +83,7 @@ function wds_wcps_user_has_product_status_filter( $status_list = array() ) {
  */
 function wds_wcps_filter_bbp_topics_list( $query ) {
 
-	global $user_ID;
+	$user_id = bbp_get_current_user_id();
 
 	if ( current_user_can( 'manage_options' ) ) {
 		return $query;
@@ -94,7 +94,7 @@ function wds_wcps_filter_bbp_topics_list( $query ) {
 		$restricted = wds_wcps_is_forum_restricted( bbp_get_forum_id() );
 
 		// If this forum is restricted and the user is not logged in nor a product owner.
-		if ( $restricted && ( ! is_user_logged_in() || ! wds_wcps_user_has_product( $user_ID, $restricted ) ) ) {
+		if ( $restricted && ( ! is_user_logged_in() || ! wds_wcps_user_has_product( $user_id, $restricted ) ) ) {
 			return array(); // Return an empty query.
 		}
 	}
@@ -113,7 +113,9 @@ add_filter( 'bbp_has_topics_query', 'wds_wcps_filter_bbp_topics_list' );
  * @return string Potentially modified reply content.
  */
 function wds_wcps_filter_replies( $content, $reply_id ) {
-	global $user_ID, $post;
+	global $post;
+
+	$user_id = bbp_get_current_user_id();
 
 	if ( current_user_can( 'manage_options' ) ) {
 		return $content;
@@ -125,7 +127,7 @@ function wds_wcps_filter_replies( $content, $reply_id ) {
 		$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // Check for parent forum restriction.
 	}
 
-	if ( $restricted_to && ! wds_wcps_user_has_product( $user_ID, $restricted_to ) ) {
+	if ( $restricted_to && ! wds_wcps_user_has_product( $user_id, $restricted_to ) ) {
 
 		$return = '<div class="wds_wcps_message">' . sprintf(
 			esc_html__( 'This content is restricted to owners of %s.', 'wcps' ),
@@ -149,7 +151,8 @@ add_filter( 'bbp_get_reply_content', 'wds_wcps_filter_replies', 2, 999 );
  * @return bool User's modified topic access.
  */
 function wds_wcps_hide_new_topic_form( $can_access ) {
-	global $user_ID;
+
+	$user_id = bbp_get_current_user_id();
 
 	if ( current_user_can( 'manage_options' ) ) {
 		return $can_access;
@@ -157,7 +160,7 @@ function wds_wcps_hide_new_topic_form( $can_access ) {
 
 	$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // Check for parent forum restriction.
 
-	if ( $restricted_to && ! wds_wcps_user_has_product( $user_ID, $restricted_to ) ) {
+	if ( $restricted_to && ! wds_wcps_user_has_product( $user_id, $restricted_to ) ) {
 		$can_access = false;
 	}
 	return $can_access;
@@ -173,7 +176,8 @@ add_filter( 'bbp_current_user_can_access_create_topic_form', 'wds_wcps_hide_new_
  * @return bool User's modified reply access.
  */
 function wds_wcps_hide_new_replies_form( $can_access ) {
-	global $user_ID;
+
+	$user_id = bbp_get_current_user_id();
 
 	if ( current_user_can( 'manage_options' ) ) {
 		return $can_access;
@@ -185,7 +189,7 @@ function wds_wcps_hide_new_replies_form( $can_access ) {
 		$restricted_to = wds_wcps_is_forum_restricted( bbp_get_forum_id() ); // Check for parent forum restriction.
 	}
 
-	if ( $restricted_to && ! wds_wcps_user_has_product( $user_ID, $restricted_to ) ) {
+	if ( $restricted_to && ! wds_wcps_user_has_product( $user_id, $restricted_to ) ) {
 		$can_access = false;
 	}
 	return $can_access;
