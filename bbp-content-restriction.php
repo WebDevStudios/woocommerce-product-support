@@ -95,7 +95,7 @@ function wds_wcps_filter_bbp_topics_list( $query ) {
 
 		// If this forum is restricted and the user is not logged in nor a product owner.
 		if ( $restricted && ( ! is_user_logged_in() || ! wds_wcps_user_has_product( $user_id, $restricted ) ) ) {
-			return array(); // Return an empty query.
+			$query['post_type'] = 'NO ACCESS';
 		}
 	}
 
