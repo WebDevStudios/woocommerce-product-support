@@ -668,11 +668,11 @@ function wds_wcps_init() {
 				foreach ( $results as $result ) {
 
 					// Save updated metadata.
-					if ( 'forum' == get_post_type( $result->meta_value ) ) {
-						update_post_meta( $result->post_id, '_product_forum', $result->meta_value);
+					if ( 'forum' === get_post_type( $result->meta_value ) ) {
+						update_post_meta( $result->post_id, '_product_forum', $result->meta_value );
 						update_post_meta( $result->meta_value, '_wds_wcps_connected_product', $result->post_id );
 					} else {
-						update_post_meta( $result->post_id, '_product_group', $result->meta_value);
+						update_post_meta( $result->post_id, '_product_group', $result->meta_value );
 					}
 
 					// Delete legacy metadata.
