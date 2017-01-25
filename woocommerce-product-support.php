@@ -223,11 +223,11 @@ function wds_wcps_init() {
 				add_action( 'plugin_action_links', array( $this, 'add_plugin_settings_link' ), 10, 2 );
 				add_action( 'woocommerce_order_status_completed', array( $this, 'wc_process_order' ) );
 				add_action( 'woocommerce_update_options_integration', array( $this, 'process_admin_options' ) );
+				add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 
 				$this->updater();
 			}
-
-		} /* includes() */
+		}
 
 		/**
 		 * Check for required plugin dependencies.
@@ -247,7 +247,11 @@ function wds_wcps_init() {
 
 			return true;
 
-		} /* meets_requirements() */
+		}
+
+		public function scripts() {
+			wp_enqueue_script( 'woocommerce-product-support', $this->directory_url . '/js/woocommerce-product-support.js', array( 'jquery' ) );
+		}
 
 		/**
 		 * Disable plugin if requirements are not met.
