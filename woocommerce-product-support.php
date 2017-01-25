@@ -237,8 +237,8 @@ function wds_wcps_init() {
 		private function meets_requirements() {
 
 			// Check if either BuddyPress Groups or bbPress are available.
-			$this->use_buddypress = class_exists( 'BP_Groups_Group' ) ? true : false;
-			$this->use_bbpress = class_exists( 'BBP_Component' ) ? true : false;
+			$this->use_buddypress = class_exists( 'BP_Groups_Group' );
+			$this->use_bbpress = class_exists( 'BBP_Component' );
 
 			// If neither BuddyPress nor bbPress are available, return false.
 			if ( ! $this->use_buddypress && ! $this->use_bbpress ) {
