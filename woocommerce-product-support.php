@@ -495,10 +495,11 @@ function wds_wcps_init() {
 			}
 
 			// Grab our support variables.
-			$product_group     = ! empty( $_POST['product_group'] ) ? $_POST['product_group'] : false;
-			$product_forum     = ! empty( $_POST['product_forum'] ) ? $_POST['product_forum'] : false;
-			$create_first_post = isset( $_POST['create_first_post'] ) ? true : false;
-			$limit_access      = isset( $_POST['limit_access'] ) ? true : false;
+			$product_group        = ! empty( $_POST['product_group'] ) ? $_POST['product_group'] : false;
+			$product_forum        = ! empty( $_POST['product_forum'] ) ? $_POST['product_forum'] : false;
+			$product_forum_parent = ! empty( $_POST['product_forum_parent'] ) ? $_POST['product_forum_parent'] : false;
+			$create_first_post    = isset( $_POST['create_first_post'] ) ? true : false;
+			$limit_access         = isset( $_POST['limit_access'] ) ? true : false;
 
 			// If BP is enabled, and we have a group, create the group.
 			if ( $this->use_buddypress && 'new' === $product_group ) {
@@ -513,6 +514,7 @@ function wds_wcps_init() {
 			// Update product meta.
 			update_post_meta( $product_id, '_product_group', absint( $product_group ) );
 			update_post_meta( $product_id, '_product_forum', absint( $product_forum ) );
+			update_post_meta( $product_id, '_product_forum_parent', absint( $product_forum_parent ) );
 			update_post_meta( $product_id, '_product_limit_access', $limit_access );
 
 			// Update forum meta.
