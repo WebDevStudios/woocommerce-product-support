@@ -40,6 +40,14 @@ function wds_wcps_init() {
 	class WC_Product_Support extends WC_Settings_API {
 
 		/**
+		 * Plugin version.
+		 *
+		 * @since 2.1.0
+		 * @var string
+		 */
+		public static $version = '2.1.0';
+
+		/**
 		 * Plugin basename.
 		 *
 		 * @since 2.0.0
@@ -118,6 +126,14 @@ function wds_wcps_init() {
 		 * @var string
 		 */
 		public $bp_topic_text = '';
+
+		/**
+		 * Default bbPress parent forum to use.
+		 *
+		 * @since 2.1.0
+		 * @var mixed|string
+		 */
+		private $default_parent_forum = '';
 
 		/**
 		 * Whether or not to use BuddyPress.
