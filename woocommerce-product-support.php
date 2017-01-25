@@ -171,11 +171,13 @@ function wds_wcps_init() {
 			load_plugin_textdomain( 'wcps', false, dirname( $this->basename ) . '/languages' );
 
 			// Setup our extension name and description.
-			$this->id                 = 'proudct_support';
-			$this->method_title       = esc_html__( 'WooCommerce Product Support', 'wcps' );
-			$this->method_description = esc_html__( 'This extension allows you to associate Products with either BuddyPress or bbPress forums.<br/>Below you can specify the default title and content for an optional first topic.', 'wcps' );
+			$this->id                 = 'product_support';
+			$this->method_title       = __( 'WooCommerce Product Support', 'wcps' ); // Escaped later.
+			$this->method_description = esc_html__( 'This extension allows you to associate Products with either BuddyPress or bbPress forums. Below you can specify the default title and content for an optional first topic.', 'wcps' );
 			$this->settings_link      = admin_url( 'admin.php?page=wc-settings&tab=integration&section=' . $this->id );
-			$this->plugin             = plugin_basename( __FILE__ );
+
+			// Hook in all our components.
+			$this->includes();
 
 			// Load the form fields.
 			$this->init_form_fields();
@@ -184,11 +186,9 @@ function wds_wcps_init() {
 			$this->init_settings();
 
 			// Define user set variables.
-			$this->bp_topic_title = $this->settings['bp_topic_title'];
-			$this->bp_topic_text  = $this->settings['bp_topic_text'];
-
-			// Hook in all our components.
-			$this->includes();
+			$this->bp_topic_title       = $this->settings['bp_topic_title'];
+			$this->bp_topic_text        = $this->settings['bp_topic_text'];
+			$this->default_parent_forum = $this->settings['parent_forum'];
 
 		} /* __construct() */
 
