@@ -736,6 +736,14 @@ function wds_wcps_init() {
 						get_bloginfo( 'name' )
 					),
 				),
+				'parent_forum'    => array(
+					'title'       => esc_html__( 'Default bbPress parent forum', 'wcps' ),
+					'description' => esc_html__( 'Choose with forum to use as parent default.', 'wcps' ),
+					'type'        => 'select',
+					'css'         => 'width:450px;',
+					'default'     => '',
+					'options'     => wds_wcps_bbp_forum_list(),
+				),
 			);
 		}
 
