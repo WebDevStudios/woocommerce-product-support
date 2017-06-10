@@ -711,6 +711,9 @@ function wds_wcps_init() {
 		 * @since 1.0.0
 		 */
 		public function init_form_fields() {
+			if ( ! $this->meets_requirements() ) {
+				return;
+			}
 			$this->form_fields = array(
 				'bp_topic_title'  => array(
 					'title'       => esc_html__( 'Topic Title', 'wcps' ),
