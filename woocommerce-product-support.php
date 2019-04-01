@@ -201,10 +201,10 @@ function wds_wcps_init() {
 
 				// Include our bbPress content restriction.
 				if ( ! defined( 'EDD_CR_PLUGIN_DIR' ) ) {
-					include_once( trailingslashit( $this->directory_path ) . 'bbp-content-restriction.php' );
+					include_once trailingslashit( $this->directory_path ) . 'bbp-content-restriction.php';
 				}
 
-				include_once( trailingslashit( $this->directory_path ) . 'vendor/edd-updater/license-handler.php' );
+				include_once trailingslashit( $this->directory_path ) . 'vendor/edd-updater/license-handler.php';
 
 				// Hook everything where it belongs.
 				add_action( 'admin_init', array( $this, 'register_metabox' ) );
