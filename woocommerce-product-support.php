@@ -383,84 +383,81 @@ function wds_wcps_init() {
 		 */
 		private function render_metabox_bbpress_settings( $post ) {
 
+			// Setup our variables.
 			$product_forum = get_post_meta( $post->ID, '_product_forum', true );
 			$limit_access  = get_post_meta( $post->ID, '_product_limit_access', true );
-			$parent_forum  = get_post_meta( $post->ID, '_product_forum_parent', true );
 
-			if ( empty( $parent_forum ) ) {
-				$parent_forum = $this->default_parent_forum;
-			}
+			// Initialize our output.
+			$output = '';
 
-			$output  = '';
-			$options = '';
+			// Render our label.
+			$output .= '<p><label for="product_forum">' . esc_html__( 'Connected bbPress Forum:', 'wcps' ) . '</label> ';
 
-			$output .= sprintf(
-				'<p><label for="product_forum">%s</label>
-				<select name="product_forum" id="product_forum">
-				<option value="" class="level-0">%s</option>
-				<option value="new" class="level-0">%s</option>
-				%s
-				</select></p>',
-				esc_html__( 'Connected bbPress Forum:', 'wcps' ),
-				esc_html__( 'None', 'wcps' ),
-				esc_html__( 'Create new forum', 'wcps' ),
-				bbp_get_dropdown( array(
-					'selected'           => $product_forum,
-					'select_id'          => 'product_forum',
-					'show_none'          => false,
-					'disable_categories' => false,
-					'options_only'       => true,
-				) )
-			);
-
-			$forum_list = wds_wcps_bbp_forum_list();
-			if ( count( $forum_list ) > 2 ) {
-				foreach ( $forum_list as $id => $title ) {
-					$selected = selected( $id, $parent_forum, false );
-					$options .= sprintf(
-						'<option value="%s" %s>%s</option>',
-						$id,
-						$selected,
-						$title
-					);
-				}
-
-				$output .= sprintf(
-					'<p class="product_forum_parent"><label for="product_forum_parent">%s</label>
-				<select name="product_forum_parent" id="product_forum_parent">
-				%s
-				</select></p>',
-					esc_html__( 'Parent bbPress Forum:', 'wcps' ),
-					$options
-				);
-			}
+			// Build an entire select input for our forums.
+			$output .= '<select name="product_forum" id="product_forum">' . "\n";
+			$output .= '<option value="" class="level-0">' . esc_html__( 'None', 'wcps' ) . '</option>' . "\n";
+			$output .= '<option value="new" class="level-0">' . esc_html__( 'Create new forum', 'wcps' ) . '</option>' . "\n";
+			$output .= bbp_get_dropdown( array(
+				'selected'           => $product_forum,
+				'select_id'          => 'product_forum',
+				'show_none'          => false,
+				'disable_categories' => false,
+				'options_only'       => true,
+			) );
+			$output .= '</select>';
 
 			// Create first topic.
-			$output .= sprintf(
-				'<p class="enable-first-post">
-				<label for="create_first_post">
-				<input type="checkbox" id="create_first_post" name="create_first_post" value="true">%s</label></p>',
-				sprintf(
-					__( 'Create first topic using <a href="%s" target="_blank">default setings</a>.', 'wcps' ),
-					admin_url( 'admin.php?page=wc-settings&tab=integration' )
-				)
-			);
+			$output .= '<p class="enable-first-post"><label for="create_first_post"><input type="checkbox" id="create_first_post" name="create_first_post" value="true"> '. sprintf( __( 'Create first topic using <a href="%s" target="_blank">default settings</a>.', 'wcps' ), admin_url('admin.php?page=woocommerce_settings&tab=integration&section=buddypress') ) . '</label></p>';
 
 			// Restrict access to product owners.
 			if ( ! defined( 'EDD_CR_PLUGIN_DIR' ) ) {
-				$output .= sprintf(
-					'<p class="limit-access">
-					<label for="limit_access">
-					<input type="checkbox" id="limit_access" name="limit_access" value="true" %s>%s
-					</label></p>',
-					checked( $limit_access, true, false ),
-					__( 'Limit forum access to product owners.', 'wcps' )
-				);
+				$output .= '<p class="limit-access"><label for="limit_access"><input type="checkbox" id="limit_access" name="limit_access" value="true" ' . checked( $limit_access, true, false ) . '> ' . esc_html__( 'Limit forum access to product owners.', 'wcps' ) . '</label></p>';
 			}
+
+			// JS to conditionally show checkbox for "insert first post".
+			$output .= '
+				<script type="text/javascript">
+					jQuery("#product_forum").change( function() {
+
+						// Setup our variables.
+						var $this               = jQuery(this);
+						var $create_topic_wrap  = jQuery(".enable-first-post");
+						var $create_topic_input = jQuery("#create_first_post");
+						var $limit_access_wrap  = jQuery(".limit-access").show();
+						var $limit_access_input = jQuery("#limit_access");
+
+						// If no forum is selected.
+						if ( "" === $this.val() ) {
+							// Hide and uncheck first post checkbox.
+							$create_topic_wrap.hide(); // Hide the checkbox container.
+							$create_topic_input.attr("checked", false); // Uncheck the checkbox (for good measure).
+
+							// Hide and uncheck access limiter.
+							$limit_access_wrap.hide(); // Hide the checkbox container.
+							$limit_access_input.attr("checked", false); // Uncheck the checkbox (for good measure).
+
+						// If a new forum is selected.
+						} else if ( "new" === $this.val()) {
+							$limit_access_wrap.show();
+							$create_topic_wrap.show();
+
+						// If any forum is selected.
+						} else {
+							// Show access limiter.
+							$limit_access_wrap.show();
+
+							// Hide and uncheck first post checkbox.
+							$create_topic_wrap.hide(); // Hide the checkbox container.
+							$create_topic_input.attr("checked", false); // Uncheck the checkbox (for good measure).
+						}
+
+					}).change();
+				</script>
+			';
 
 			return $output;
 
-		}
+		} /* render_metabox_bbpress_settings() */
 
 		/**
 		 * Action that fires when a product is published.
