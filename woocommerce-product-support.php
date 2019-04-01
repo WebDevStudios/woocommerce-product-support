@@ -740,10 +740,10 @@ Thank you!
 			}
 
 			// Build the order object.
-			$order = new WC_Order( $order_id );
+			$order = wc_get_order( $order_id );
 
 			// Get the user's ID.
-			$user_id = $order->user_id;
+			$user_id = $order->get_customer_id();
 
 			// Get the purchased product ID(s).
 			$products = $order->get_items();
