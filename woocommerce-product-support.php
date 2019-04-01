@@ -199,10 +199,6 @@ function wds_wcps_init() {
 				}
 
 				include_once( trailingslashit( $this->directory_path ) . 'vendor/edd-updater/license-handler.php' );
-				include_once( $this->directory_path . '/template-tags.php' );
-				include_once( $this->directory_path . '/shortcodes/woo_product_support_forum_link.php' );
-				include_once( $this->directory_path . '/shortcodes/woo_user_product_support_forum_list.php' );
-				include_once( $this->directory_path . '/widgets/widgets.php' );
 
 				// Hook everything where it belongs.
 				add_action( 'admin_init', array( $this, 'register_metabox' ) );
@@ -210,12 +206,12 @@ function wds_wcps_init() {
 
 				add_action( 'plugin_action_links', array( $this, 'add_plugin_settings_link' ), 10, 2 );
 				add_action( 'woocommerce_order_status_completed', array( $this, 'wc_process_order' ) );
-				add_action( 'woocommerce_update_options_integration', array( $this, 'process_admin_options' ) );
-				add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
+				add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
 
 				$this->updater();
 			}
-		}
+
+		} /* includes */
 
 		/**
 		 * Check for required plugin dependencies.
