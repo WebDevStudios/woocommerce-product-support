@@ -222,7 +222,7 @@ function wds_wcps_init() {
 
 			// Check if either BuddyPress Groups or bbPress are available.
 			$this->use_buddypress = class_exists( 'BP_Groups_Group' );
-			$this->use_bbpress = class_exists( 'BBP_Component' );
+			$this->use_bbpress    = class_exists( 'BBP_Component' );
 
 			// If neither BuddyPress nor bbPress are available, return false.
 			if ( ! $this->use_buddypress && ! $this->use_bbpress ) {
@@ -231,11 +231,7 @@ function wds_wcps_init() {
 
 			return true;
 
-		}
-
-		public function scripts() {
-			wp_enqueue_script( 'woocommerce-product-support', $this->directory_url . '/js/woocommerce-product-support.js', array( 'jquery' ) );
-		}
+		} /* meets_requirements() */
 
 		/**
 		 * Disable plugin if requirements are not met.
@@ -269,7 +265,7 @@ function wds_wcps_init() {
 				deactivate_plugins( $this->basename );
 			}
 
-		}
+		} /* maybe_disable_plugin() */
 
 		/**
 		 * Add Settings link to plugins output.
@@ -283,7 +279,7 @@ function wds_wcps_init() {
 		public function add_plugin_settings_link( $links, $file ) {
 
 			// If the filter is for this plugin.
-			if ( $file === $this->basename ) {
+			if ( $file == $this->basename ) {
 				// Write a settings link and add it to the front of the array.
 				$settings_link = sprintf(
 					'<a href="%1$s">%2$s</a>',
@@ -296,7 +292,7 @@ function wds_wcps_init() {
 			// Return the pluin action links.
 			return $links;
 
-		}
+		} /* add_plugin_settings_link() */
 
 		/**
 		 * Adds metabox to product editor so a group/forum can be created or existing selected.
@@ -307,12 +303,12 @@ function wds_wcps_init() {
 			add_meta_box(
 				'support_metabox',
 				__( 'Product Support', 'wcps' ),
-				array( $this, 'render_metabox' ),
+				array( $this, 'render_metabox'),
 				'product',
 				'side',
 				'default'
 			);
-		}
+		} /* register_metabox() */
 
 		/**
 		 * Output the Product Support metabox.
@@ -323,6 +319,7 @@ function wds_wcps_init() {
 		 */
 		public function render_metabox( $post ) {
 
+			// Concatenate our output.
 			$output = '';
 
 			if ( $this->use_buddypress ) {
@@ -333,9 +330,10 @@ function wds_wcps_init() {
 				$output .= $this->render_metabox_bbpress_settings( $post );
 			}
 
+			// Echo our output.
 			echo $output;
 
-		}
+		} /* render_metabox() */
 
 		/**
 		 * Render BP settings for product metabox.
@@ -373,7 +371,7 @@ function wds_wcps_init() {
 
 			return $output;
 
-		}
+		} /* render_metabox_buddypress_settings() */
 
 		/**
 		 * Render bbPress settings for product metabox.
@@ -479,11 +477,10 @@ function wds_wcps_init() {
 			}
 
 			// Grab our support variables.
-			$product_group        = ! empty( $_POST['product_group'] ) ? $_POST['product_group'] : false;
-			$product_forum        = ! empty( $_POST['product_forum'] ) ? $_POST['product_forum'] : false;
-			$product_forum_parent = ! empty( $_POST['product_forum_parent'] ) ? $_POST['product_forum_parent'] : false;
-			$create_first_post    = isset( $_POST['create_first_post'] ) ? true : false;
-			$limit_access         = isset( $_POST['limit_access'] ) ? true : false;
+			$product_group     = ! empty( $_POST['product_group'] ) ? $_POST['product_group'] : false;
+			$product_forum     = ! empty( $_POST['product_forum'] ) ? $_POST['product_forum'] : false;
+			$create_first_post = isset( $_POST['create_first_post'] ) ? true : false;
+			$limit_access      = isset( $_POST['limit_access'] ) ? true : false;
 
 			// If BP is enabled, and we have a group, create the group.
 			if ( $this->use_buddypress && 'new' === $product_group ) {
