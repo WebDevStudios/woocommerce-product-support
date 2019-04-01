@@ -124,14 +124,6 @@ function wds_wcps_init() {
 		public $bp_topic_text = '';
 
 		/**
-		 * Default bbPress parent forum to use.
-		 *
-		 * @since 2.1.0
-		 * @var mixed|string
-		 */
-		private $default_parent_forum = '';
-
-		/**
 		 * Whether or not to use BuddyPress.
 		 *
 		 * @since 1.0.0
