@@ -254,7 +254,7 @@ function wds_wcps_init() {
 				add_thickbox();
 
 				// Generate our error message.
-				$output = '<div id="message" class="error">';
+				$output  = '<div id="message" class="error">';
 				$output .= '<p>';
 				$output .= sprintf(
 					__( '%1$s requires either %2$s <em>OR</em> %3$s with %4$s. Please install and activate at least one of these plugins.', 'wcps' ),
@@ -285,7 +285,7 @@ function wds_wcps_init() {
 		public function add_plugin_settings_link( $links, $file ) {
 
 			// If the filter is for this plugin.
-			if ( $file == $this->basename ) {
+			if ( $file === $this->basename ) {
 				// Write a settings link and add it to the front of the array.
 				$settings_link = sprintf(
 					'<a href="%1$s">%2$s</a>',
@@ -309,10 +309,9 @@ function wds_wcps_init() {
 			add_meta_box(
 				'support_metabox',
 				__( 'Product Support', 'wcps' ),
-				array( $this, 'render_metabox'),
+				array( $this, 'render_metabox' ),
 				'product',
-				'side',
-				'default'
+				'side'
 			);
 		} /* register_metabox */
 
@@ -519,7 +518,7 @@ function wds_wcps_init() {
 
 			// Get the product details.
 			$product_title = get_the_title( $product_id );
-			$product_slug = basename( get_permalink( $product_id ) );
+			$product_slug  = basename( get_permalink( $product_id ) );
 
 			// See if we already have a corresponding BP Group.
 			$group_id = BP_Groups_Group::group_exists( $product_slug );
@@ -563,7 +562,7 @@ function wds_wcps_init() {
 
 			// Get all our current admins.
 			$wp_user_search = new WP_User_Query( array( 'role' => 'administrator' ) );
-			$admins = $wp_user_search->get_results();
+			$admins         = $wp_user_search->get_results();
 
 			// Add our admin users as members to this group.
 			if ( is_array( $admins ) && ! empty( $admins ) ) {
@@ -637,7 +636,7 @@ function wds_wcps_init() {
 					'menu_order'     => 0,
 				),
 				array(
-					'forum_id'       => $forum_id,
+					'forum_id' => $forum_id,
 				)
 			);
 
@@ -707,23 +706,23 @@ Thank you!
 			'wcps' );
 
 			$this->form_fields = array(
-				'bp_topic_title'  => array(
+				'bp_topic_title' => array(
 					'title'       => esc_html__( 'Topic Title', 'wcps' ),
 					'description' => '<br/>' . esc_html__( 'Note: you can use %product_title% to output the product title.', 'wcps' ),
 					'type'        => 'text',
 					'css'         => 'width:450px;',
 					'default'     => esc_attr__( '[IMPORTANT] %product_title% Support Guidelines', 'wcps' ),
-					),
-				'bp_topic_text'   => array(
+				),
+				'bp_topic_text'  => array(
 					'title'       => esc_html__( 'Topic Content', 'wcps' ),
 					'description' => '<br/>' . esc_html__( 'Note: you can use %product_title% to output the product title.', 'wcps' ),
 					'type'        => 'textarea',
 					'css'         => 'width:450px; height:250px;',
 					'default'     => sprintf(
 						$default_content,
-						get_bloginfo('name')
-						),
-					)
+						get_bloginfo( 'name' )
+					),
+				),
 			);
 		} /* init_form_fields */
 
