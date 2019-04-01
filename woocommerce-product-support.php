@@ -775,11 +775,14 @@ Thank you!
 				require_once $this->directory_path . 'vendor/edd-updater/EDD_SL_Plugin_Updater.php';
 			}
 			$license_key = trim( get_option( 'wds_wcps_license_key' ) );
-			$edd_updater = new EDD_SL_Plugin_Updater( wds_wcps_woocommerce_store_url(), __FILE__, array(
+			$edd_updater = new EDD_SL_Plugin_Updater(
+				wds_wcps_woocommerce_store_url(),
+				__FILE__,
+				array(
 					'version'   => '2.0.3',     // Current version number.
-					'license'   => $license_key,       // license key (used get_option above to retrieve from DB)
-					'item_name' => 'Product Support Extension', // name of this plugin
-					'author'    => 'Pluginize'         // author of this plugin.
+					'license'   => $license_key,       // license key (used get_option above to retrieve from DB).
+					'item_name' => 'Product Support Extension', // name of this plugin.
+					'author'    => 'Pluginize',         // author of this plugin.
 				)
 			);
 		}
