@@ -1,6 +1,7 @@
 <?php
 /**
  * WooCommerce Product Support.
+ *
  * @package    Woocommerce Product Support
  * @subpackage bbPress Content Restriction
  * @author     WebDevStudios.
@@ -19,13 +20,13 @@ function wds_wcps_is_forum_restricted( $forum_id = 0 ) {
 
 	// Look for a connected product.
 	$product_id = absint( get_post_meta( $forum_id, '_wds_wcps_connected_product', true ) );
+	$restricted = get_post_meta( $product_id, '_product_limit_access', true );
 
 	// See if product is set to restrict access.
-	if ( $product_id && $restricted = get_post_meta( $product_id, '_product_limit_access', true ) ) {
+	if ( $product_id && $restricted ) {
 		return $product_id;
 	}
 
-	// If not, return false.
 	return false;
 }
 
