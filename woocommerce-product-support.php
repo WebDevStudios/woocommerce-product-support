@@ -355,7 +355,7 @@ function wds_wcps_init() {
 			$output .= '<p><label for="product_group">' . esc_html__( 'Connected BuddyPress Group:', 'wcps' ) . '</label> ';
 
 			// Setup our select input.
-			$output .= '<select name="product_group" id="product_group">';
+			$output .= '<select name="product_group" id="support_group">';
 			$output .= '<option value="">' . esc_html__( 'None', 'wcps' ) . '</option>';
 			$output .= '<option value="new">' . esc_html__( 'Create new group', 'wcps' ) . '</option>';
 
