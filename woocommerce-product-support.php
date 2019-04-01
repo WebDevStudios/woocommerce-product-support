@@ -1,18 +1,22 @@
 <?php
 /**
  * WooCommerce Product Support.
+ *
  * @package Woocommerce Product Support
  * @author  WebDevStudios
  * @since   1.0.0
  */
 
-/*
+/**
  * Plugin Name: WooCommerce Product Support
- * Plugin URI: http://webdevstudios.com
+ * Plugin URI: http://pluginize.com
  * Description: Connect your products to BuddyPress Groups and bbPress Forums. Easily manage product support or build paid communities.
  * Author: WebDevStudios
- * Version: 2.0.2
- * Author URI: http://webdevstudios.com
+ * Version: 2.0.3
+ * Author URI: http://pluginize.com
+ *
+ * WC requires at least 3.0
+ * WC tested up to: 3.5.7
  */
 
 /**
