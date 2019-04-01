@@ -73,7 +73,7 @@ function wds_wcps_init() {
 		 * @since 1.0.0
 		 * @var string
 		 */
-		public $id = '';
+		public $id;
 
 		/**
 		 * Plugin title.
@@ -81,7 +81,7 @@ function wds_wcps_init() {
 		 * @since 1.0.0
 		 * @var string|void
 		 */
-		public $method_title = '';
+		public $method_title;
 
 		/**
 		 * Plugin description.
@@ -89,7 +89,7 @@ function wds_wcps_init() {
 		 * @since 1.0.0
 		 * @var string|void
 		 */
-		public $method_description = '';
+		public $method_description;
 
 		/**
 		 * Settings tab link.
@@ -139,6 +139,12 @@ function wds_wcps_init() {
 		 */
 		public $use_bbpress = false;
 
+		/**
+		 * Pluginize store URL.
+		 *
+		 * @since 2.0.3
+		 * @var string
+		 */
 		public $store_url = '';
 
 		/**
