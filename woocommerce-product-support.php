@@ -693,9 +693,17 @@ function wds_wcps_init() {
 		 * @since 1.0.0
 		 */
 		public function init_form_fields() {
-			if ( ! $this->meets_requirements() ) {
-				return;
-			}
+			$default_content = __(
+'Welcome to the %%product_title%% support forum!
+
+<strong>To expedite your help requests,</strong> please include the version numbers you\'re currently running for %%product_title%% and for WordPress, along with the URL of the website in question. This helps us to research and test and provide faster support.
+
+<strong>Please do <em>not</em> post</strong> your username, password, licenses or any other personal or sensitive information.
+
+Thank you!
+-The %s Team',
+			'wcps' );
+
 			$this->form_fields = array(
 				'bp_topic_title'  => array(
 					'title'       => esc_html__( 'Topic Title', 'wcps' ),
