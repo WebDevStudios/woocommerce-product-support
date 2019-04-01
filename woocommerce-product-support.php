@@ -184,7 +184,7 @@ function wds_wcps_init() {
 			// Hook in all our components.
 			$this->includes();
 
-		} /* __construct() */
+		} /* __construct */
 
 		/**
 		 * Include additional dependencies and hook all methods.
@@ -237,7 +237,7 @@ function wds_wcps_init() {
 
 			return true;
 
-		} /* meets_requirements() */
+		} /* meets_requirements */
 
 		/**
 		 * Disable plugin if requirements are not met.
@@ -271,7 +271,7 @@ function wds_wcps_init() {
 				deactivate_plugins( $this->basename );
 			}
 
-		} /* maybe_disable_plugin() */
+		} /* maybe_disable_plugin */
 
 		/**
 		 * Add Settings link to plugins output.
@@ -298,7 +298,7 @@ function wds_wcps_init() {
 			// Return the pluin action links.
 			return $links;
 
-		} /* add_plugin_settings_link() */
+		} /* add_plugin_settings_link */
 
 		/**
 		 * Adds metabox to product editor so a group/forum can be created or existing selected.
@@ -314,7 +314,7 @@ function wds_wcps_init() {
 				'side',
 				'default'
 			);
-		} /* register_metabox() */
+		} /* register_metabox */
 
 		/**
 		 * Output the Product Support metabox.
@@ -339,7 +339,7 @@ function wds_wcps_init() {
 			// Echo our output.
 			echo $output;
 
-		} /* render_metabox() */
+		} /* render_metabox */
 
 		/**
 		 * Render BP settings for product metabox.
@@ -377,7 +377,7 @@ function wds_wcps_init() {
 
 			return $output;
 
-		} /* render_metabox_buddypress_settings() */
+		} /* render_metabox_buddypress_settings */
 
 		/**
 		 * Render bbPress settings for product metabox.
@@ -463,7 +463,7 @@ function wds_wcps_init() {
 
 			return $output;
 
-		} /* render_metabox_bbpress_settings() */
+		} /* render_metabox_bbpress_settings */
 
 		/**
 		 * Action that fires when a product is published.
@@ -505,7 +505,7 @@ function wds_wcps_init() {
 				update_post_meta( $product_forum, '_wds_wcps_connected_product', $product_id );
 			}
 
-		} /* publish_product() */
+		} /* publish_product */
 
 		/**
 		 * Create a BuddyPress group on product creation and adds all admins as group members.
@@ -550,7 +550,7 @@ function wds_wcps_init() {
 
 			return $group_id;
 
-		} /* bp_create_group() */
+		} /* bp_create_group */
 
 		/**
 		 * Add all admins to a BP Group.
@@ -573,7 +573,7 @@ function wds_wcps_init() {
 				}
 			}
 
-		} /* bp_add_admins_to_group() */
+		} /* bp_add_admins_to_group */
 
 		/**
 		 * Create a bbPress forum on product creation.
@@ -607,7 +607,7 @@ function wds_wcps_init() {
 			// Return our new forum ID.
 			return $forum_id;
 
-		} /* bbp_create_forum() */
+		} /* bbp_create_forum */
 
 		/**
 		 * Create the first topic for a forum.
@@ -648,7 +648,7 @@ function wds_wcps_init() {
 
 			return $topic_id;
 
-		} /* bbp_create_topic() */
+		} /* bbp_create_topic */
 
 		/**
 		 * Update legacy product support metadata.
@@ -687,11 +687,7 @@ function wds_wcps_init() {
 				}
 			}
 
-		} /* update_legacy_meta() */
-
-
-		/* WooCommerce Specific **********************************************/
-
+		} /* update_legacy_meta */
 
 		/**
 		 * Initialise our Settings Form Fields.
@@ -765,11 +761,10 @@ Thank you!
 					if ( $group_id ) {
 						groups_join_group( $group_id, $user_id );
 					}
-
 				}
 			}
 
-		} /* bp_add_user_to_group() */
+		} /* bp_add_user_to_group */
 
 		/**
 		 * Run our updater routine.
@@ -792,9 +787,15 @@ Thank you!
 
 	} /* WC_Product_Support */
 
-} /* wds_wcps_init() */
+} /* wds_wcps_init */
 add_action( 'plugins_loaded', 'wds_wcps_init' );
 
+/**
+ * Pluginize domain.
+ *
+ * @since 2.0.3
+ * @return string
+ */
 function wds_wcps_woocommerce_store_url() {
 	return 'https://pluginize.com';
 }
