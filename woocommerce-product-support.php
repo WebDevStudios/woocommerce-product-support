@@ -711,52 +711,19 @@ Thank you!
 					'type'        => 'text',
 					'css'         => 'width:450px;',
 					'default'     => esc_attr__( '[IMPORTANT] %product_title% Support Guidelines', 'wcps' ),
-				),
+					),
 				'bp_topic_text'   => array(
 					'title'       => esc_html__( 'Topic Content', 'wcps' ),
 					'description' => '<br/>' . esc_html__( 'Note: you can use %product_title% to output the product title.', 'wcps' ),
 					'type'        => 'textarea',
 					'css'         => 'width:450px; height:250px;',
 					'default'     => sprintf(
-						__('Welcome to the %%product_title%% support forum!
-
-						<strong>To expedite your help requests,</strong> please include the version numbers you\'re currently running for %%product_title%% and for WordPress, along with the URL of the website in question. This helps us to research and test and provide faster support.
-
-						<strong>Please do <em>not</em> post</strong> your username, password, licenses or any other personal or sensitive information.
-
-						Thank you!
-						-The %s Team', 'wcps' ),
-						get_bloginfo( 'name' )
-					),
-				),
-				'parent_forum'    => array(
-					'title'       => esc_html__( 'Default bbPress parent forum', 'wcps' ),
-					'description' => esc_html__( 'Choose with forum to use as parent default.', 'wcps' ),
-					'type'        => 'select',
-					'css'         => 'width:450px;',
-					'default'     => '',
-					'options'     => wds_wcps_bbp_forum_list(),
-				),
+						$default_content,
+						get_bloginfo('name')
+						),
+					)
 			);
-		}
-
-		/**
-		 * Admin Options within WooCommerce Integration settings.
-		 *
-		 * @since 1.0.0
-		 */
-		public function admin_options() {
-			?>
-
-			<h3><?php echo esc_html( $this->method_title ); ?></h3>
-			<?php echo wpautop( $this->method_description ); ?>
-
-			<table class="form-table">
-			<?php $this->generate_settings_html(); ?>
-			</table>
-			<input type="hidden" name="section" value="<?php echo esc_attr( $this->id ); ?>" />
-			<?php
-		}
+		} /* init_form_fields */
 
 		/**
 		 * Add user to BP group when order is completed.
