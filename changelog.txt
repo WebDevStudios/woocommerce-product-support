@@ -1,5 +1,10 @@
 *** Product Support Changelog ***
 
+2019.04.01 - version 2.0.3
+ * Ensured compatibility with WooCommerce 3.5.x
+ * Cleaned up code from older WooCommerce code
+ * Code standards cleanup
+
 2015.10.14 - version 2.0.2
  * Fix settings link listed under plugin in Plugins list.
  * Fix typo in group/forum assignment area.
