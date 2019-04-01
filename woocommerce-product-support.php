@@ -492,7 +492,6 @@ function wds_wcps_init() {
 			// Update product meta.
 			update_post_meta( $product_id, '_product_group', absint( $product_group ) );
 			update_post_meta( $product_id, '_product_forum', absint( $product_forum ) );
-			update_post_meta( $product_id, '_product_forum_parent', absint( $product_forum_parent ) );
 			update_post_meta( $product_id, '_product_limit_access', $limit_access );
 
 			// Update forum meta.
@@ -500,7 +499,7 @@ function wds_wcps_init() {
 				update_post_meta( $product_forum, '_wds_wcps_connected_product', $product_id );
 			}
 
-		}
+		} /* publish_product() */
 
 		/**
 		 * Create a BuddyPress group on product creation and adds all admins as group members.
@@ -545,7 +544,7 @@ function wds_wcps_init() {
 
 			return $group_id;
 
-		}
+		} /* bp_create_group() */
 
 		/**
 		 * Add all admins to a BP Group.
@@ -568,7 +567,7 @@ function wds_wcps_init() {
 				}
 			}
 
-		}
+		} /* bp_add_admins_to_group() */
 
 		/**
 		 * Create a bbPress forum on product creation.
@@ -583,7 +582,7 @@ function wds_wcps_init() {
 
 			// Create our forum and grab its ID.
 			$forum_id = bbp_insert_forum( array(
-				'post_parent'    => absint( get_post_meta( $product_id, '_product_forum_parent', true ) ), // Forum ID.
+				'post_parent'    => 0, // Forum ID.
 				'post_status'    => bbp_get_public_status_id(),
 				'post_type'      => bbp_get_forum_post_type(),
 				'post_author'    => bbp_get_current_user_id(),
@@ -602,7 +601,7 @@ function wds_wcps_init() {
 			// Return our new forum ID.
 			return $forum_id;
 
-		}
+		} /* bbp_create_forum() */
 
 		/**
 		 * Create the first topic for a forum.
@@ -643,7 +642,7 @@ function wds_wcps_init() {
 
 			return $topic_id;
 
-		}
+		} /* bbp_create_topic() */
 
 		/**
 		 * Update legacy product support metadata.
@@ -681,7 +680,12 @@ function wds_wcps_init() {
 
 				}
 			}
-		}
+
+		} /* update_legacy_meta() */
+
+
+		/* WooCommerce Specific **********************************************/
+
 
 		/**
 		 * Initialise our Settings Form Fields.
@@ -780,9 +784,11 @@ function wds_wcps_init() {
 					if ( $group_id ) {
 						groups_join_group( $group_id, $user_id );
 					}
+
 				}
 			}
-		}
+
+		} /* bp_add_user_to_group() */
 
 		/**
 		 * Run our updater routine.
@@ -795,16 +801,17 @@ function wds_wcps_init() {
 			}
 			$license_key = trim( get_option( 'wds_wcps_license_key' ) );
 			$edd_updater = new EDD_SL_Plugin_Updater( wds_wcps_woocommerce_store_url(), __FILE__, array(
-					'version'   => '2.0.2',     // Current version number.
+					'version'   => '2.0.3',     // Current version number.
 					'license'   => $license_key,       // license key (used get_option above to retrieve from DB)
 					'item_name' => 'Product Support Extension', // name of this plugin
-					'author'    => 'Pluginize',         // author of this plugin.
+					'author'    => 'Pluginize'         // author of this plugin.
 				)
 			);
 		}
-	}
 
-}
+	} /* WC_Product_Support */
+
+} /* wds_wcps_init() */
 add_action( 'plugins_loaded', 'wds_wcps_init' );
 
 function wds_wcps_woocommerce_store_url() {
