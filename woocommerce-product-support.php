@@ -29,7 +29,7 @@
 function wds_wcps_init() {
 
 	// Stop here if WooCommerce isn't present.
-	if ( ! class_exists( 'WC_Settings_API' ) ) {
+	if ( ! class_exists( 'WC_Integration' ) ) {
 		return false;
 	}
 
@@ -39,17 +39,9 @@ function wds_wcps_init() {
 	 * @since 1.0.1
 	 *
 	 * @class WC_Product_Support
-	 * @extends WC_Settings_API
+	 * @extends WC_Integration
 	 */
-	class WC_Product_Support extends WC_Settings_API {
-
-		/**
-		 * Plugin version.
-		 *
-		 * @since 2.1.0
-		 * @var string
-		 */
-		public static $version = '2.1.0';
+	class WC_Product_Support extends WC_Integration {
 
 		/**
 		 * Plugin basename.
